@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useNavigation } from '@react-navigation/native';
+import { CommonActions, useNavigation } from "@react-navigation/native";
 import { StackNavigationProp } from '@react-navigation/stack';
 import {
   StyleSheet,
@@ -55,7 +55,12 @@ export default function RegisterView() {
         await AsyncStorage.setItem('refreshToken', refreshToken);
 
         Alert.alert("성공", "회원가입이 완료되었습니다.");
-        navigation.replace('TabNavigator');
+        navigation.dispatch(
+          CommonActions.reset({
+            index: 0,
+            routes: [{ name: 'TabNavigator' }],
+          })
+        );
       } else {
         throw new Error('Invalid response format');
       }
