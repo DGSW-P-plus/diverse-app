@@ -78,7 +78,7 @@ export default function StartView() {
         <TouchableOpacity style={styles.loginButton} onPress={() => navigation.navigate('LoginView')}>
           <Text style={styles.loginButtonText}>로그인</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.registerButton} onPress={() => navigation.navigate('LoginView')}>
+        <TouchableOpacity style={styles.registerButton} onPress={() => navigation.navigate('RegisterView')}>
           <Text style={styles.registerButtonText}>회원가입</Text>
         </TouchableOpacity>
       </View>

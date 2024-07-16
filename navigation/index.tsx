@@ -2,18 +2,18 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { useFonts } from "expo-font";
 
-import { BackButton } from '../components/BackButton';
-import Overview from '../screens/StartView';
+import StartView from "../screens/StartView";
+import RegisterView from "../screens/Auth/RegisterView";
 import LoginView from "../screens/Auth/LoginView";
 import { fontLists } from "../assets/fonts/fontLists";
 
 export type RootStackParamList = {
   LoginView: undefined;
+  RegisterView: undefined;
   StartView: undefined;
 };
 
 import { Text } from "react-native";
-import StartView from "../screens/StartView";
 
 const Stack = createStackNavigator<RootStackParamList>();
 
@@ -29,6 +29,11 @@ export default function RootStack() {
         <Stack.Screen
           name="LoginView"
           component={LoginView}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="RegisterView"
+          component={RegisterView}
           options={{ headerShown: false }}
         />
       </Stack.Navigator>
