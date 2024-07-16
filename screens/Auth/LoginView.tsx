@@ -1,168 +1,109 @@
-import { Link, useNavigation,CommonActions } from '@react-navigation/native';
+import React, { useState } from 'react';
+import { useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import {
   StyleSheet,
   Text,
   TouchableOpacity,
   View,
-  Image,
-  TextInput,
-  Button,
   KeyboardAvoidingView,
   Platform,
-  Alert
+  SafeAreaView,
+  ScrollView
 } from "react-native";
-import AsyncStorage, { useAsyncStorage } from "@react-native-async-storage/async-storage";
-
 import { RootStackParamList } from '../../navigation';
 import { StatusBar } from "expo-status-bar";
-import { useState } from "react";
-import axios from 'axios';
+import AnimatedTextInput from '../../components/AnimatedTextInput';
 
-type OverviewScreenNavigationProps = StackNavigationProp<RootStackParamList, 'LoginView'>;
+type OverviewScreenNavigationProps = StackNavigationProp<RootStackParamList, 'RegisterView'>;
 
-export default function LoginView() {
+export default function RegisterView() {
   const navigation = useNavigation<OverviewScreenNavigationProps>();
-  const [id, setId] = useState('');
+  const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
-  const requestData = {
-    id: id,
-    password: password,
-  };
-
   return (
-    <KeyboardAvoidingView
-      behavior={Platform.OS === "ios" ? "padding" : "height"}
-      style={styles.container}
-    >
-      <StatusBar style="dark"/>
-      <View style={styles.logotitle_container}>
-        <View style={styles.title_container}>
-          <Text style={styles.title}> 주야로 </Text>
-          <Text style={styles.loginguide}> 로그인 </Text>
+    <SafeAreaView style={styles.safeArea}>
+      <KeyboardAvoidingView
+        behavior={Platform.OS === "ios" ? "padding" : "height"}
+        style={styles.container}
+      >
+        <StatusBar style="dark"/>
+        <ScrollView contentContainerStyle={styles.scrollViewContent}>
+          <View style={styles.titleContainer}>
+            <Text style={styles.title}>Diverse</Text>
+            <Text style={styles.titleBold}>로그인.</Text>
+          </View>
+          <View style={styles.formContainer}>
+            <AnimatedTextInput
+              label="사용자 ID"
+              value={email}
+              onChangeText={setEmail}
+            />
+            <AnimatedTextInput
+              label="비밀번호"
+              value={password}
+              onChangeText={setPassword}
+              secureTextEntry
+            />
+          </View>
+        </ScrollView>
+        <View style={styles.buttonContainer}>
+          <TouchableOpacity style={styles.registerButton} onPress={() => console.log('Register')}>
+            <Text style={styles.registerButtonText}>로그인</Text>
+          </TouchableOpacity>
         </View>
-      </View>
-      <View style={styles.inputContainer}>
-        <TextInput
-          style={styles.IDInput}
-          value={id}
-          onChangeText={setId}
-          placeholder="이메일을 입력해주세요"
-        />
-        <TextInput
-          style={styles.PWInput}
-          value={password}
-          onChangeText={setPassword}
-          secureTextEntry
-          placeholder="비밀번호를 입력해주세요"
-        />
-        <TouchableOpacity style={styles.LoginButton} onPress={() => console.log('HomeView')}>
-          <Text style={styles.loginbuttontext}> 로그인 </Text>
-        </TouchableOpacity>
-      </View>
-    </KeyboardAvoidingView>
+      </KeyboardAvoidingView>
+    </SafeAreaView>
   );
 }
+
 const styles = StyleSheet.create({
-  container: {
-    backgroundColor: '#ffffff',
+  safeArea: {
     flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
+    backgroundColor: '#ffffff',
   },
-  logotitle_container: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center',
+  container: {
+    flex: 1,
+    padding: 24,
+  },
+  scrollViewContent: {
+    flexGrow: 1,
+    justifyContent: 'flex-start',
+  },
+  titleContainer: {
+    marginTop: 45,
     marginBottom: 60,
-    marginTop: 30,
-  },
-  imageStyle: {
-    width: 75,
-    height: 105,
-    marginBottom: 25,
-  },
-  title_container: {
-    justifyContent: 'center',
-    paddingLeft: 10,
-    paddingBottom: 20, // Add
   },
   title: {
-    fontSize: 42,
+    fontSize: 38,
     fontFamily: 'Pretendard-ExtraBold',
-    color: '#000000',
+    color: '#a3a3a3',
   },
-  inputContainer: {
-    backgroundColor: '#ffffff',
-    paddingTop: 20,
+  titleBold: {
+    fontSize: 64,
+    fontFamily: 'Pretendard-ExtraBold',
+    color: '#050505',
   },
-  loginguide: {
-    fontSize: 25,
-    fontFamily: 'Pretendard-Light',
-    paddingLeft: 5,
-    color: '#000000',
+  formContainer: {
+    marginTop: 0,
   },
-  loginbuttontext: {
-    fontSize: 17,
+  buttonContainer: {
+    marginTop: 20,
+    marginBottom: 20,
+  },
+  registerButton: {
+    width: '100%',
+    height: 64,
+    borderRadius: 45,
+    backgroundColor: '#000000',
+    borderWidth: 2,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  registerButtonText: {
+    fontSize: 18,
     color: '#ffffff',
-    textAlign: 'center',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  IDInput: {
-    width: 343,
-    height: 55,
-    backgroundColor: '#F4F4F4',
-    fontFamily: 'Pretendard-Bold',
-    borderRadius: 15,
-    marginBottom: 20,
-    paddingLeft: 25,
-  },
-  PWInput: {
-    width: 343,
-    height: 55,
-    backgroundColor: '#F4F4F4',
-    fontFamily: 'Pretendard-Bold',
-    borderRadius: 15,
-    marginBottom: 20,
-    paddingLeft: 25,
-  },
-  LoginButton: {
-    width: 343,
-    height: 55,
-    backgroundColor: '#AA01FF',
-    borderRadius: 15,
-    marginBottom: 10,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  ResetPWContainer: {
-    marginTop: 24,
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  ResetPWButton: {
-    borderRadius: 15,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  ResetPWGuidetext: {
-    fontSize: 15,
-    paddingTop: 1,
-    color: '#6c6c6c',
-    fontFamily: 'Pretendard-Bold',
-    textAlign: 'center',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  ResetPWtext: {
-    fontSize: 16,
-    fontFamily: 'Pretendard-Bold',
-    color: '#4b4b4b',
-    textAlign: 'center',
-    alignItems: 'center',
-    justifyContent: 'center',
+    fontFamily: 'Pretendard-SemiBold',
   },
 });

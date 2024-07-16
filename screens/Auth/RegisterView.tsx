@@ -32,7 +32,7 @@ export default function RegisterView() {
       <StatusBar style="dark"/>
       <View style={styles.contentContainer}>
         <View style={styles.titleContainer}>
-          <Text style={styles.title}>Diverse.</Text>
+          <Text style={styles.title}>Diverse</Text>
           <Text style={styles.titleBold}>회원가입.</Text>
         </View>
       </View>
@@ -44,7 +44,7 @@ export default function RegisterView() {
           onChangeText={setEmail}
         />
         <AnimatedTextInput
-          label="이메일"
+          label="사용자 ID"
           value={email}
           onChangeText={setEmail}
         />

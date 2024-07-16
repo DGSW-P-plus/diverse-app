@@ -3,6 +3,7 @@ import { useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { RootStackParamList } from '../navigation';
+import { StatusBar } from "expo-status-bar";
 
 type OverviewScreenNavigationProps = StackNavigationProp<RootStackParamList, 'StartView'>;
 
@@ -60,6 +61,7 @@ export default function StartView() {
 
   return (
     <View style={styles.container}>
+      <StatusBar style="dark"/>
       <View style={styles.contentContainer}>
         <View style={styles.animationContainer}>
           <Text style={styles.def1}>
