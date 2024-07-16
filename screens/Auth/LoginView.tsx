@@ -9,18 +9,52 @@ import {
   KeyboardAvoidingView,
   Platform,
   SafeAreaView,
-  ScrollView
+  ScrollView, Alert
 } from "react-native";
 import { RootStackParamList } from '../../navigation';
 import { StatusBar } from "expo-status-bar";
 import AnimatedTextInput from '../../components/AnimatedTextInput';
+import axios from "axios";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 type OverviewScreenNavigationProps = StackNavigationProp<RootStackParamList, 'RegisterView'>;
 
 export default function RegisterView() {
   const navigation = useNavigation<OverviewScreenNavigationProps>();
-  const [email, setEmail] = useState('');
+  const [id, setID] = useState('');
   const [password, setPassword] = useState('');
+
+  const handleLogin = async () => {
+    const loginBody = {
+      username: id,
+      password: password,
+    };
+
+    if (!id || !password) {
+      Alert.alert("오류", "모든 필드를 채워주세요.");
+      return;
+    }
+
+    try {
+      console.log(loginBody)
+      const response = await axios.post(`http://10.80.162.63:8080/auth/login`, loginBody);
+
+      console.log(response.data);
+      if (response.data.data) {
+        const { accessToken, refreshToken } = response.data.data;
+        await AsyncStorage.setItem('accessToken', accessToken);
+        await AsyncStorage.setItem('refreshToken', refreshToken);
+
+        Alert.alert("성공", "로그인이 완료되었습니다.");
+        navigation.replace('TabNavigator');
+      } else {
+        throw new Error('Invalid response format');
+      }
+    } catch (error) {
+      console.error('Registration error:', error);
+      Alert.alert("오류", "로그인 중 오류가 발생했습니다.");
+    }
+  };
 
   return (
     <SafeAreaView style={styles.safeArea}>
@@ -37,8 +71,8 @@ export default function RegisterView() {
           <View style={styles.formContainer}>
             <AnimatedTextInput
               label="사용자 ID"
-              value={email}
-              onChangeText={setEmail}
+              value={id}
+              onChangeText={setID}
             />
             <AnimatedTextInput
               label="비밀번호"
@@ -49,7 +83,7 @@ export default function RegisterView() {
           </View>
         </ScrollView>
         <View style={styles.buttonContainer}>
-          <TouchableOpacity style={styles.registerButton} onPress={() => console.log('Register')}>
+          <TouchableOpacity style={styles.registerButton} onPress={handleLogin}>
             <Text style={styles.registerButtonText}>로그인</Text>
           </TouchableOpacity>
         </View>

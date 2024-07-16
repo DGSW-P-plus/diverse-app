@@ -5,12 +5,17 @@ import { useFonts } from "expo-font";
 import StartView from "../screens/StartView";
 import RegisterView from "../screens/Auth/RegisterView";
 import LoginView from "../screens/Auth/LoginView";
+import TabNavigator from  "navigation/tab-navigator"
 import { fontLists } from "../assets/fonts/fontLists";
 
 export type RootStackParamList = {
   LoginView: undefined;
   RegisterView: undefined;
   StartView: undefined;
+  TabNavigator: undefined;
+  ChatListView: undefined;
+  FriendCardView: undefined;
+  ProfileView: undefined;
 };
 
 import { Text } from "react-native";
@@ -26,6 +31,11 @@ export default function RootStack() {
     <NavigationContainer>
       <Stack.Navigator initialRouteName="StartView">
         <Stack.Screen name="StartView" component={StartView} options={{ headerShown: false }} />
+        <Stack.Screen
+          name="TabNavigator"
+          component={TabNavigator}
+          options={{ headerShown: false }}
+        />
         <Stack.Screen
           name="LoginView"
           component={LoginView}

@@ -15,7 +15,7 @@ export default function AnimatedTextInput({ label, value, onChangeText, secureTe
   useEffect(() => {
     Animated.timing(labelPosition, {
       toValue: isFocused || value ? 1 : 0,
-      duration: 300,
+      duration: 250,
       useNativeDriver: false
     }).start();
   }, [isFocused, value]);
@@ -68,7 +68,7 @@ const styles = StyleSheet.create({
     fontFamily: 'Pretendard-Bold',
   },
   input: {
-    fontFamily: 'Pretendard-Bold',
+    fontFamily: 'Pretendard-Medium',
     fontSize: 16,
     color: '#000',
     paddingTop: 10,
