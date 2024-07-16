@@ -111,7 +111,7 @@ export const styles = StyleSheet.create({
     color: '#838383',
   },
   def3: {
-    fontSize: 82,
+    fontSize: 79,
     fontFamily: 'Pretendard-ExtraBold',
     color: '#050505',
   },

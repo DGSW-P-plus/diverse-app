@@ -7,10 +7,14 @@ import { StatusBar } from "expo-status-bar";
 
 type OverviewScreenNavigationProps = StackNavigationProp<RootStackParamList, 'ChatListView'>;
 
+//TODO: 프로필 받아오기 구현
+//TODO: 이미지 캐싱, SNS 컴포넌트 디자인
+//TODO: 소개글 작성 페이지, Fetch 로직 만들기.
+//TODO: Gender 수정 페이지, Fetch 로직 만들기.
 export default function ProfileView() {
   return (
     <View style={styles.container}>
-      <Text> 채팅 </Text>
+      <Text> 프로필 </Text>
     </View>
   );
 }

@@ -7,6 +7,10 @@ import { StatusBar } from "expo-status-bar";
 
 type OverviewScreenNavigationProps = StackNavigationProp<RootStackParamList, 'ChatListView'>;
 
+//TODO: 채팅방 컴포넌트 구현
+//TODO: 채팅 버블 구현
+//TODO: STOMP 설치, 및 소캣 통신 구현
+
 export default function ChatListView() {
   return (
     <View style={styles.container}>
