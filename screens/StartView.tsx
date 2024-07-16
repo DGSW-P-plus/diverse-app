@@ -114,7 +114,7 @@ export const styles = StyleSheet.create({
     color: '#050505',
   },
   buttonContainer: {
-    marginBottom: 20,
+    marginBottom: 30,
   },
   loginButton: {
     width: '100%',
