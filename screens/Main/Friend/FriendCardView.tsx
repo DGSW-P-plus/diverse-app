@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, StyleSheet, Dimensions, Image, Platform } from "react-native";
+import { View, Text, StyleSheet, Dimensions, Image, Platform, Animated } from "react-native";
 import Swiper from 'react-native-deck-swiper';
 import { StatusBar } from "expo-status-bar";
 import { WithLocalSvg } from 'react-native-svg/css';
@@ -13,12 +13,12 @@ export default function FriendCardView() {
   const cards = [
     {
       id: 1,
-      name: '박주영',
+      name: '소수자',
       genders: [{ iconName: 'agender.svg', name: '에이젠더' }],
       Locate: '대구광역시',
       socialMedia: { Instagram: 'https://instagram.com/user1', Tiktok: 'https://tiktok.com/@user3', AppleMusic: 'https://music.apple.com/profile/4rNe5' },
       profileImage: require('../../../assets/tuser.jpeg'),
-      introduction: "안녕하세요! 에이젠더로 살아가는 박주영입니다. 음악과 춤을 좋아하고, 새로운 사람들과의 만남을 즐깁니다."
+      introduction: "안녕하세요! 에이젠더로 살아가는 소수자입니다. 음악과 춤을 좋아하고, 새로운 사람들과의 만남을 즐깁니다."
     },
     {
       id: 2,
@@ -103,6 +103,10 @@ export default function FriendCardView() {
         renderCard={(card) => <FriendCard {...card} />}
         onSwiped={(cardIndex) => console.log(`카드 ${cardIndex}가 스와이프됨`)}
         onSwipedAll={() => console.log('모든 카드가 스와이프됨')}
+        onSwipedLeft={(cardIndex) => {
+          console.log(`카드 ${cardIndex}가 왼쪽으로 스와이프됨`);
+          // 여기에 왼쪽 스와이프 시 실행할 로직을 추가합니다.
+        }}
         cardIndex={0}
         backgroundColor={'#f1f1f1'}
         stackSize={3}
@@ -191,5 +195,21 @@ const styles = StyleSheet.create({
   },
   socialIcon: {
     marginHorizontal: 5,
+  },
+  chatPreview: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: 'rgba(0, 0, 0, 0.5)',
+    zIndex: 1000,
+  },
+  chatPreviewText: {
+    color: 'white',
+    fontSize: 24,
+    fontWeight: 'bold',
   },
 });

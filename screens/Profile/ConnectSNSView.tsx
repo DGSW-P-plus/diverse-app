@@ -1,34 +1,37 @@
 import React, { useState, useEffect } from 'react';
 import { CommonActions, RouteProp, useNavigation, useRoute } from "@react-navigation/native";
 import { StackNavigationProp } from '@react-navigation/stack';
-import { ScrollView, StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { Alert, ScrollView, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { RootStackParamList } from '../../navigation';
 import { StatusBar } from "expo-status-bar";
 import { Ionicons } from "@expo/vector-icons";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import AnimatedTextInput from '../../components/AnimatedTextInput';
 import axios from "axios";
+import { log } from "expo/build/devtools/logger";
 
 type ConnectSNSViewRouteProps = RouteProp<RootStackParamList, 'ConnectSNSView'>;
 type ConnectSNSViewNavigationProps = StackNavigationProp<RootStackParamList, 'ConnectSNSView'>;
 
 const socialIcons = {
-  Instagram: 'logo-instagram',
-  Facebook: 'logo-facebook',
-  Tiktok: 'logo-tiktok',
-  Twitter: 'logo-twitter',
-  AppleMusic: 'musical-notes',
+  INSTAGRAM: 'logo-instagram',
+  FACEBOOK: 'logo-facebook',
+  TIKTOK: 'logo-tiktok',
+  TWITTER: 'logo-twitter',
+  APPLE_MUSIC: 'musical-notes',
 };
 
 export default function ConnectSNSView() {
   const navigation = useNavigation<ConnectSNSViewNavigationProps>();
   const route = useRoute<ConnectSNSViewRouteProps>();
 
-  const [instagram, setInstagram] = useState('');
-  const [facebook, setFacebook] = useState('');
-  const [tiktok, setTiktok] = useState('');
-  const [twitter, setTwitter] = useState('');
-  const [appleMusic, setAppleMusic] = useState('');
+  const [snsData, setSnsData] = useState({
+    INSTAGRAM: '',
+    FACEBOOK: '',
+    TIKTOK: '',
+    TWITTER: '',
+    APPLE_MUSIC: '',
+  });
 
   useEffect(() => {
     if (!route.params.isFirstNavigate) {
@@ -38,14 +41,60 @@ export default function ConnectSNSView() {
 
   const fetchSNSData = async () => {
     try {
-
+      const token = await AsyncStorage.getItem('accessToken');
+      const response = await axios.get('http://172.16.1.250:8080/sns/me',{
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      const { snsList } = response.data.data;
+      const newSnsData = { ...snsData };
+      snsList.forEach(sns => {
+        newSnsData[sns.type] = sns.url;
+      });
+      setSnsData(newSnsData);
     } catch (error) {
       console.error('Fetching SNS data error:', error);
     }
   };
 
   const handleSave = async () => {
+    console.log(snsData);
+    try {
+      const token = await AsyncStorage.getItem('accessToken');
+      const snsArray = Object.entries(snsData).map(([type, url]) => ({ type, url }));
+      console.log({ sns: snsArray })
+      const response = await axios.patch('http://172.16.1.250:8080/sns/all', { sns: snsArray },{
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      // Handle successful save
+      Alert.alert(
+        'SNS 등록 완료',
+        'SNS 등록이 완료되었습니다.',
+        [
+          {
+            text: '확인',
+            onPress: () => {
+              navigation.dispatch(
+                CommonActions.reset({
+                  index: 0,
+                  routes: [{ name: 'TabNavigator' }],
+                })
+              );
+            },
+          },
+        ],
+        { cancelable: false }
+      );
+    } catch (error) {
+      console.error('Saving SNS data error:', error);
+    }
+  };
 
+  const handleInputChange = (type, value) => {
+    setSnsData(prevState => ({ ...prevState, [type]: value }));
   };
 
   return (
@@ -57,41 +106,15 @@ export default function ConnectSNSView() {
       </View>
 
       <View style={styles.formContainer}>
-        <AnimatedTextInput
-          label="Instagram"
-          value={instagram}
-          onChangeText={setInstagram}
-          // @ts-ignore
-          icon={<Ionicons name={socialIcons.Instagram} size={24} color="#6c6c6c" />}
-        />
-        <AnimatedTextInput
-          label="Facebook"
-          value={facebook}
-          onChangeText={setFacebook}
-          // @ts-ignore
-          icon={<Ionicons name={socialIcons.Facebook} size={24} color="#6c6c6c" />}
-        />
-        <AnimatedTextInput
-          label="TikTok"
-          value={tiktok}
-          onChangeText={setTiktok}
-          // @ts-ignore
-          icon={<Ionicons name={socialIcons.Tiktok} size={24} color="#6c6c6c" />}
-        />
-        <AnimatedTextInput
-          label="Twitter"
-          value={twitter}
-          onChangeText={setTwitter}
-          // @ts-ignore
-          icon={<Ionicons name={socialIcons.Twitter} size={24} color="#6c6c6c" />}
-        />
-        <AnimatedTextInput
-          label="Apple Music"
-          value={appleMusic}
-          onChangeText={setAppleMusic}
-          // @ts-ignore
-          icon={<Ionicons name={socialIcons.AppleMusic} size={24} color="#6c6c6c" />}
-        />
+        {Object.entries(socialIcons).map(([type, iconName]) => (
+          <AnimatedTextInput
+            key={type}
+            label={type.charAt(0) + type.slice(1).toLowerCase().replace('_', ' ')}
+            value={snsData[type]}
+            onChangeText={(value) => handleInputChange(type, value)}
+            icon={<Ionicons name={iconName} size={24} color="#6c6c6c" />}
+          />
+        ))}
       </View>
 
       <View style={styles.buttonContainer}>
@@ -102,7 +125,6 @@ export default function ConnectSNSView() {
     </ScrollView>
   );
 }
-
 const styles = StyleSheet.create({
   container: {
     flexGrow: 1,

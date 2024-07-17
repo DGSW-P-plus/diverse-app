@@ -22,10 +22,12 @@ export type RootStackParamList = {
   GenderSelectView: { isFirstNavigate: boolean };
   ConnectSNSView: { isFirstNavigate: boolean };
   EditProfileView: { isFirstNavigate: boolean };
+  ChatRoomView: { chatRoomId: string, nickname: string };
 };
 
 import { Text } from "react-native";
 import EditProfileView from "../screens/Profile/EditProfileView";
+import ChatRoomView from "../screens/Main/Chat/ChatRoomView";
 
 const Stack = createStackNavigator<RootStackParamList>();
 
@@ -72,6 +74,11 @@ export default function RootStack() {
           component={EditProfileView}
           options={{ headerShown: false }}
         />
+        <Stack.Screen
+        name="ChatRoomView"
+        component={ChatRoomView}
+        options={{ headerShown: false }}
+      />
       </Stack.Navigator>
     </NavigationContainer>
   );
