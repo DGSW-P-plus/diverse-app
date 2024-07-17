@@ -106,6 +106,7 @@ const styles = StyleSheet.create({
     maxWidth: '70%',
     padding: 12,
     borderRadius: 20,
+    marginBottom: 5,
   },
   userBubble: {
     backgroundColor: '#000000',
@@ -125,6 +126,7 @@ const styles = StyleSheet.create({
     borderTopWidth: 1,
     borderTopColor: '#E0E0E0',
     alignItems: 'center',
+    marginBottom: -90,
   },
   input: {
     flex: 1,

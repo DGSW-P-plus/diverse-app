@@ -54,7 +54,7 @@ export default function ProfileView() {
   const fetchMyProfile = async () => {
     try {
       const token = await AsyncStorage.getItem('accessToken');
-      const response = await axios.get(`http://172.16.3.80:8080/member/me`, {
+      const response = await axios.get(`http://172.16.3.79:8080/member/me`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -123,7 +123,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   cardContainer: {
-    marginTop: 60,
+    marginTop: 70,
     marginBottom: 20,
   },
   buttonContainer: {

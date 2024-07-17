@@ -38,7 +38,7 @@ export default function RegisterView() {
 
     try {
       console.log(loginBody)
-      const response = await axios.post(`http://172.16.3.80:8080/auth/login`, loginBody);
+      const response = await axios.post(`http://172.16.3.79:8080/auth/login`, loginBody);
 
       console.log(response.data);
       if (response.data.data) {

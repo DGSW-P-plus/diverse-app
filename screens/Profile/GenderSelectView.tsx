@@ -67,7 +67,7 @@ export default function GenderSelectView() {
     try {
       const token = await AsyncStorage.getItem('accessToken');
       console.log(token);
-      const response = await axios.get(`http://172.16.3.80:8080/genders/my`, {
+      const response = await axios.get(`http://172.16.3.79:8080/genders/my`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -86,7 +86,7 @@ export default function GenderSelectView() {
     try {
       const token = await AsyncStorage.getItem('accessToken');
       console.log(token);
-      const response = await axios.put(`http://172.16.3.80:8080/genders/my`, genderPutData,{
+      const response = await axios.put(`http://172.16.3.79:8080/genders/my`, genderPutData,{
         headers: {
           Authorization: `Bearer ${token}`,
         },
