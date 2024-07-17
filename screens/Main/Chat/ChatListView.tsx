@@ -10,6 +10,7 @@ type OverviewScreenNavigationProps = StackNavigationProp<RootStackParamList, 'Ch
 //TODO: 채팅방 컴포넌트 구현
 //TODO: 채팅 버블 구현
 //TODO: STOMP 설치, 및 소캣 통신 구현
+//TODO: 비속어 & 조롱 막기?
 
 export default function ChatListView() {
   return (
