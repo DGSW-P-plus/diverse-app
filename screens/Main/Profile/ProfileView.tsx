@@ -68,7 +68,7 @@ export default function ProfileView() {
           <Ionicons name="person-outline" size={23} color="black" />
           <Text style={styles.buttonText}>프로필 수정</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.button} onPress={() => navigation.push('GenderSelectView', { isFirstNavigate: false })} >
+        <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('GenderSelectView', { isFirstNavigate: false })} >
           <Ionicons name="transgender-outline" size={23} color="black"/>
           <Text style={styles.buttonText}>Gender 수정</Text>
         </TouchableOpacity>

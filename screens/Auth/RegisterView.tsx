@@ -20,8 +20,6 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 
 type OverviewScreenNavigationProps = StackNavigationProp<RootStackParamList, 'RegisterView'>;
 
-//TODO: 젠더 선택페이지 & Fetch 로직 구현 후 거기로 이동.
-
 export default function RegisterView() {
   const navigation = useNavigation<OverviewScreenNavigationProps>();
   const [name, setName] = useState('');

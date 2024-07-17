@@ -104,12 +104,23 @@ export default function GenderSelectView() {
             <WithLocalSvg
               // @ts-ignore
               asset={genderImages[gender.iconName]}
-              width={22} height={18}
+              width={24} height={20}
               style={styles.prideFlag}
             />
-            <Text style={styles.genderName}>{gender.name}</Text>
+            <Text style={[
+              styles.genderName,
+              selectedGenders.includes(gender.id) && styles.selectedGenderName
+            ]}>
+              {gender.name}
+            </Text>
           </TouchableOpacity>
         ))}
+      </View>
+      <View style={styles.buttonContainer}>
+        <TouchableOpacity style={styles.registerButton} onPress={() =>  navigation.dispatch(CommonActions.reset({ index: 0, routes: [{ name: 'TabNavigator' }], }))}>
+          {/*<TouchableOpacity style={styles.registerButton} onPress={handleLogin}>*/}
+          <Text style={styles.registerButtonText}>저장하기</Text>
+        </TouchableOpacity>
       </View>
     </ScrollView>
   );
@@ -120,10 +131,9 @@ const styles = StyleSheet.create({
     flexGrow: 1,
     padding: 20,
     backgroundColor: '#f1f1f1',
-    alignItems: 'center',
   },
   title: {
-    fontSize: 40,
+    fontSize: 42,
     fontFamily: 'Pretendard-ExtraBold',
     color: '#a3a3a3',
   },
@@ -134,44 +144,72 @@ const styles = StyleSheet.create({
   },
   titleContainer: {
     alignItems: "flex-start",
-    marginTop: 60,
+    marginTop: 80,
     marginBottom: 60,
-    marginRight: 130,
+    marginLeft: 10,
+    marginRight: 110,
+  },
+  buttonContainer: {
+    marginTop: 20,
+    marginBottom: 50,
+  },
+  registerButton: {
+    width: '100%',
+    height: 64,
+    borderRadius: 45,
+    backgroundColor: '#000000',
+    borderWidth: 2,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  registerButtonText: {
+    fontSize: 18,
+    color: '#ffffff',
+    fontFamily: 'Pretendard-SemiBold',
   },
   genderContainer: {
     flexDirection: 'row',
     flexWrap: 'wrap',
-    justifyContent: 'center',
+    marginBottom: 90,
   },
   genderBubble: {
     flexDirection: 'row',
     alignItems: 'center',
-    paddingHorizontal: 12,
-    paddingVertical: 6,
-    backgroundColor: 'rgba(255, 255, 255, 0.2)',
-    borderRadius: 18,
-    marginRight: 8,
-    marginBottom: 8,
-    shadowColor: "#000",
-    shadowOffset: {
-      width: 0,
-      height: 2,
-    },
-    shadowOpacity: 0.25,
-    shadowRadius: 3.84,
+    paddingHorizontal: 16, // 수평 패딩 증가
+    paddingVertical: 8,   // 수직 패딩 증가
+    backgroundColor: 'rgba(255,255,255,0.93)',
+    borderRadius: 22,      // 반경 증가
+    marginRight: 10,       // 오른쪽 마진 증가
+    marginBottom: 10,      // 아래쪽 마진 증가
+    // shadowColor: "#000",
+    // shadowOffset: {
+    //   width: 0,
+    //   height: 2,
+    // },
+    // shadowOpacity: 0.25,
+    // shadowRadius: 3.84,
     elevation: 5,
+    borderWidth: 2,
+    borderColor: '#e4e4e4',
   },
   selectedBubble: {
-    backgroundColor: 'rgba(100, 100, 255, 0.5)',
+    borderColor: 'transparent',  // 선택 시 검은색 테두리
+    backgroundColor: 'rgba(23,23,23,0.93)', // 배경색 유지
   },
   prideFlag: {
     paddingLeft: 5,
     borderRadius: 5,
+    width: 26,  // 아이콘 크기 증가
+    height: 22, // 아이콘 크기 증가
   },
   genderName: {
-    marginLeft: 5,
-    fontSize: 15,
-    fontFamily: 'Pretendard-Regular',
+    marginLeft: 8,  // 왼쪽 마진 증가
+    fontSize: 17,   // 글자 크기 증가
+    fontFamily: 'Pretendard-Medium',
     color: 'black',
   },
+  selectedGenderName: {
+    color: 'white',
+  },
+
 });
