@@ -1,5 +1,14 @@
-import React, { useEffect, useRef, useState } from "react";
-import { FlatList, StyleSheet, Text, TextInput, TouchableOpacity, View, KeyboardAvoidingView, Platform } from "react-native";
+import React, { useEffect, useRef, useState } from "react";import {
+  FlatList,
+  StyleSheet,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  View,
+  KeyboardAvoidingView,
+  Platform,
+  Alert
+} from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import { StatusBar } from "expo-status-bar";
 import { useRoute } from '@react-navigation/native';
@@ -97,8 +106,65 @@ export default function ChatRoomView() {
       console.error(e);
     }
   }
-  
+
   const sendMessage = async () => {
+    const words = [
+      "병신",
+      '',
+      '',
+      '',
+      '',
+      '',
+      '',
+      '',
+      '',
+      '',
+      '',
+      '',
+      '',
+      '',
+      '',
+      '',
+      '',
+      '',
+      '',
+      '',
+      '',
+      '',
+      '',
+      '',
+      '',
+      '',
+      '',
+      '',
+      '',
+      '',
+      '',
+      '',
+      '',
+      '',
+      '',
+      '',
+      '',
+      '',
+      '',
+      '',
+      '',
+      '',
+      '',
+      '',
+      '',
+      '',
+      '',
+      '',
+      '',
+    ];
+
+    words.forEach((word) => {
+      message.includes(word) && Alert.alert('욕설 감지', '욕설은 사용할 수 없습니다.');
+      return;
+    });
+
     if (stompClient.current && message.trim().length !== 0) {
       const token = await AsyncStorage.getItem("accessToken")
       stompClient.current.send(
