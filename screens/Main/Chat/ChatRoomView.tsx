@@ -135,7 +135,7 @@ const styles = StyleSheet.create({
     maxHeight: 100, // Ensures the input does not grow indefinitely
   },
   sendButton: {
-    backgroundColor: '#007AFF',
+    backgroundColor: '#000000',
     borderRadius: 20,
     padding: 10,
   },
