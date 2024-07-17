@@ -20,6 +20,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import { log } from "expo/build/devtools/logger";
 import { FontAwesome5, Ionicons } from "@expo/vector-icons";
 import AnimatedTextEditor from "../../components/AnimatedTextEditor";
+import { SERVER_URL } from "../../constants/ServerConstants";
 
 type EditProfileViewRouteProps = RouteProp<RootStackParamList, 'EditProfileView'>;
 type EditProfileViewNavigationProps = StackNavigationProp<RootStackParamList, 'EditProfileView'>;
@@ -40,7 +41,7 @@ export default function EditProfileView() {
   const fetchMyProfile = async () => {
     try {
       const token = await AsyncStorage.getItem('accessToken');
-      const response = await axios.get(`http://172.16.3.79:8080/member/me`, {
+      const response = await axios.get(`${SERVER_URL}/member/me`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -58,7 +59,7 @@ export default function EditProfileView() {
   const patchMyProfile = async () => {
     try {
       const token = await AsyncStorage.getItem('accessToken');
-      const response = await axios.patch('http://172.16.3.79:8080/member/me', patchData, {
+      const response = await axios.patch('${SERVER_URL}/member/me', patchData, {
         headers: {
           Authorization: `Bearer ${token}`,
         },

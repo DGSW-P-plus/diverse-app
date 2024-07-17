@@ -22,21 +22,21 @@ export default function FriendCardView() {
     },
     {
       id: 2,
-      name: '박준현',
+      name: '자근감',
       genders: [{ iconName: 'bigender.svg', name: '바이젠더' }, { iconName: 'xenogender.svg', name: '제노젠더' }],
       Locate: '서울특별시',
       socialMedia: { Facebook: 'https://facebook.com/user2', Twitter: 'https://twitter.com/user2', Tiktok: 'https://tiktok.com/@user3', AppleMusic: 'https://music.apple.com/profile/4rNe5' },
       profileImage: require('../../../assets/tuser.jpeg'),
-      introduction: "다양한 성 정체성을 가진 박준현입니다. 예술과 기술의 융합에 관심이 많고, 항상 새로운 도전을 즐깁니다."
+      introduction: "다양한 성 정체성을 가진 자근감입니다. 예술과 기술의 융합에 관심이 많고, 항상 새로운 도전을 즐깁니다."
     },
     {
       id: 3,
-      name: '주강현',
+      name: '나강함',
       genders: [{ iconName: 'female.svg', name: '여성' }, { iconName: 'agender.svg', name: '에이젠더' }],
       Locate: '창원통합시 성산구',
       socialMedia: { Facebook: 'https://facebook.com/user2', Twitter: 'https://twitter.com/user2', Tiktok: 'https://tiktok.com/@user3', AppleMusic: 'https://music.apple.com/profile/4rNe5' },
       profileImage: require('../../../assets/tuser.jpeg'),
-      introduction: "여성이자 에이젠더인 주강현입니다. 환경 보호에 관심이 많고, 지속 가능한 생활 방식을 실천하고 있어요."
+      introduction: "여성이자 에이젠더인 나강함입니다. 환경 보호에 관심이 많고, 지속 가능한 생활 방식을 실천하고 있어요."
     },
     {
       id: 4,

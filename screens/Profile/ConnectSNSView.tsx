@@ -9,6 +9,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import AnimatedTextInput from '../../components/AnimatedTextInput';
 import axios from "axios";
 import { log } from "expo/build/devtools/logger";
+import { SERVER_URL } from "../../constants/ServerConstants";
 
 type ConnectSNSViewRouteProps = RouteProp<RootStackParamList, 'ConnectSNSView'>;
 type ConnectSNSViewNavigationProps = StackNavigationProp<RootStackParamList, 'ConnectSNSView'>;
@@ -42,7 +43,7 @@ export default function ConnectSNSView() {
   const fetchSNSData = async () => {
     try {
       const token = await AsyncStorage.getItem('accessToken');
-      const response = await axios.get('http://172.16.3.79:8080/sns/me',{
+      const response = await axios.get(`${SERVER_URL}/sns/me`,{
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -64,7 +65,7 @@ export default function ConnectSNSView() {
       const token = await AsyncStorage.getItem('accessToken');
       const snsArray = Object.entries(snsData).map(([type, url]) => ({ type, url }));
       console.log({ sns: snsArray })
-      const response = await axios.patch('http://172.16.3.79:8080/sns/all', { sns: snsArray },{
+      const response = await axios.patch(`${SERVER_URL}/sns/all`, { sns: snsArray },{
         headers: {
           Authorization: `Bearer ${token}`,
         },

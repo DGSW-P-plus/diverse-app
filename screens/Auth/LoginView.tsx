@@ -17,6 +17,7 @@ import AnimatedTextInput from '../../components/AnimatedTextInput';
 import axios from "axios";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { FontAwesome, Ionicons } from "@expo/vector-icons";
+import { SERVER_URL } from "../../constants/ServerConstants";
 
 type OverviewScreenNavigationProps = StackNavigationProp<RootStackParamList, 'RegisterView'>;
 
@@ -38,7 +39,7 @@ export default function RegisterView() {
 
     try {
       console.log(loginBody)
-      const response = await axios.post(`http://172.16.3.79:8080/auth/login`, loginBody);
+      const response = await axios.post(`${SERVER_URL}/auth/login`, loginBody);
 
       console.log(response.data);
       if (response.data.data) {

@@ -16,6 +16,7 @@
     "@react-navigation/native": "^6.1.7",
     "@react-navigation/stack": "^6.3.17",
     "@stomp/stompjs": "^7.0.0",
+    "@types/text-encoding": "^0.0.39",
     "axios": "^1.7.2",
     "expo": "^51.0.20",
     "expo-clipboard": "^6.0.3",
@@ -35,6 +36,8 @@
     "react-native-swipe-cards-deck": "^0.3.0",
     "react-native-toast-message": "^2.2.0",
     "rneui": "^1.0.0-stable.0",
+    "sockjs-client": "^1.6.1",
+    "text-encoding": "^0.7.0",
     "ws": "^8.18.0"
   },
   "devDependencies": {

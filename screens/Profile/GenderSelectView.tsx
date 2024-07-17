@@ -8,6 +8,7 @@ import { Ionicons } from "@expo/vector-icons";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { WithLocalSvg } from "react-native-svg/css";
 import axios from "axios";
+import { SERVER_URL } from "../../constants/ServerConstants"
 
 type GenderSelectViewRouteProps = RouteProp<RootStackParamList, 'GenderSelectView'>;
 type GenderSelectViewNavigationProps = StackNavigationProp<RootStackParamList, 'GenderSelectView'>;
@@ -67,7 +68,7 @@ export default function GenderSelectView() {
     try {
       const token = await AsyncStorage.getItem('accessToken');
       console.log(token);
-      const response = await axios.get(`http://172.16.3.79:8080/genders/my`, {
+      const response = await axios.get(`${SERVER_URL}/genders/my`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -86,7 +87,7 @@ export default function GenderSelectView() {
     try {
       const token = await AsyncStorage.getItem('accessToken');
       console.log(token);
-      const response = await axios.put(`http://172.16.3.79:8080/genders/my`, genderPutData,{
+      const response = await axios.put(`${SERVER_URL}/genders/my`, genderPutData,{
         headers: {
           Authorization: `Bearer ${token}`,
         },

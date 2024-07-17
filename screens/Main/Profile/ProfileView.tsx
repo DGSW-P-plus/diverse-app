@@ -9,6 +9,7 @@ import { Ionicons } from "@expo/vector-icons";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import Divider from "../../../components/Divider";
 import axios from "axios";
+import { SERVER_URL } from "../../../constants/ServerConstants";
 
 type OverviewScreenNavigationProps = StackNavigationProp<RootStackParamList, 'ProfileView'>;
 
@@ -54,7 +55,7 @@ export default function ProfileView() {
   const fetchMyProfile = async () => {
     try {
       const token = await AsyncStorage.getItem('accessToken');
-      const response = await axios.get(`http://172.16.3.79:8080/member/me`, {
+      const response = await axios.get(`${SERVER_URL}/member/me`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },

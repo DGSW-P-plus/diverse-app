@@ -5,6 +5,8 @@ import { FlatList, Image, StyleSheet, Text, TouchableOpacity, View } from "react
 import { RootStackParamList } from '../../../navigation';
 import { StatusBar } from "expo-status-bar";
 import axios from 'axios';
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { SERVER_URL } from "../../../constants/ServerConstants";
 
 type OverviewScreenNavigationProps = StackNavigationProp<RootStackParamList, 'ChatListView'>;
 
@@ -20,17 +22,8 @@ interface ChatRoom {
   lastMessage: string;
 }
 
-const exampleChatRooms: ChatRoom[] = [
-  { id: '3fa85f64-5717-4562-b3fc-2c963f66afa6', recipient: { id: 1, username: 'user1', nickname: '김민지' }, lastMessage: "안녕하세요! 오늘 만나서 반가웠어요." },
-  { id: '3fa85f64-5717-4562-b3fc-2c963f66afa6', recipient: { id: 2, username: 'user2', nickname: '이승훈' }, lastMessage: "네, 알겠습니다. 다음에 봐요!" },
-  { id: '3fa85f64-5717-4562-b3fc-2c963f66afa6', recipient: { id: 3, username: 'user3', nickname: '최유진' }, lastMessage: "저도 그 영화 정말 재미있게 봤어요." },
-  { id: '3fa85f64-5717-4562-b3fc-2c963f66afa6', recipient: { id: 4, username: 'user4', nickname: '정다운' }, lastMessage: "내일 회의 시간이 어떻게 되나요?" },
-  { id: '3fa85f64-5717-4562-b3fc-2c963f66afa6', recipient: { id: 5, username: 'user5', nickname: '한소희' }, lastMessage: "축하드려요! 정말 기쁜 소식이네요." },
-  { id: '3fa85f64-5717-4562-b3fc-2c963f66afa6', recipient: { id: 6, username: 'user6', nickname: '송민호' }, lastMessage: "네, 주말에 봐요!" },
-];
-
 export default function ChatListView() {
-  const [chatRooms, setChatRooms] = useState<ChatRoom[]>(exampleChatRooms);
+  const [chatRooms, setChatRooms] = useState<ChatRoom[]>([]);
   const navigation = useNavigation<OverviewScreenNavigationProps>();
 
   useEffect(() => {
@@ -39,8 +32,16 @@ export default function ChatListView() {
 
   const fetchChatRooms = async () => {
     try {
-      const response = await axios.get('http://your-api-url/chatrooms'); // Replace with your API endpoint
+      const token = await AsyncStorage.getItem('accessToken');
+      const response = await axios.get(`${SERVER_URL}/chat/rooms`, {
+        headers: {
+          Authorization: token,
+        },
+      });
+
       if (response.data && response.data.data) {
+        console.log("Chat Rooms")
+        console.log(response.data.data)
         setChatRooms(response.data.data);
       }
     } catch (error) {
