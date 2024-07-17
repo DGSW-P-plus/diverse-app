@@ -202,6 +202,7 @@ const styles = StyleSheet.create({
     color: 'black',
   },
   selectedGenderName: {
+    fontFamily: 'Pretendard-SemiBold',
     color: 'white',
   },
 

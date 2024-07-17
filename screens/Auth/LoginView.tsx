@@ -16,6 +16,7 @@ import { StatusBar } from "expo-status-bar";
 import AnimatedTextInput from '../../components/AnimatedTextInput';
 import axios from "axios";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { FontAwesome, Ionicons } from "@expo/vector-icons";
 
 type OverviewScreenNavigationProps = StackNavigationProp<RootStackParamList, 'RegisterView'>;
 
@@ -75,11 +76,13 @@ export default function RegisterView() {
             <AnimatedTextInput
               label="사용자 ID"
               value={id}
+              icon={<FontAwesome name="id-badge" size={24} color="#6c6c6c" />}
               onChangeText={setID}
             />
             <AnimatedTextInput
               label="비밀번호"
               value={password}
+              icon={<Ionicons name="lock-closed" size={24} color="#6c6c6c" />}
               onChangeText={setPassword}
               secureTextEntry
             />

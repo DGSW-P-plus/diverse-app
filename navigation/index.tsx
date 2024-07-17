@@ -21,9 +21,11 @@ export type RootStackParamList = {
   ProfileView: undefined;
   GenderSelectView: { isFirstNavigate: boolean };
   ConnectSNSView: { isFirstNavigate: boolean };
+  EditProfileView: { isFirstNavigate: boolean };
 };
 
 import { Text } from "react-native";
+import EditProfileView from "../screens/Profile/EditProfileView";
 
 const Stack = createStackNavigator<RootStackParamList>();
 
@@ -63,6 +65,11 @@ export default function RootStack() {
         <Stack.Screen
           name="ConnectSNSView"
           component={ConnectSNSView}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="EditProfileView"
+          component={EditProfileView}
           options={{ headerShown: false }}
         />
       </Stack.Navigator>

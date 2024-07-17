@@ -64,7 +64,7 @@ export default function ProfileView() {
       </View>
       <Divider orientation={'horizontal'} width={2} color={'#6e6e6e'} dividerStyle={styles.divider} />
       <View style={styles.buttonContainer}>
-        <TouchableOpacity style={styles.button}>
+        <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('EditProfileView', { isFirstNavigate: false })} >
           <Ionicons name="person-outline" size={23} color="black" />
           <Text style={styles.buttonText}>프로필 수정</Text>
         </TouchableOpacity>
