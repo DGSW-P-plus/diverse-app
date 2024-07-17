@@ -8,6 +8,7 @@ import FriendCard from "../../../components/FriendCard";
 import { Ionicons } from "@expo/vector-icons";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import Divider from "../../../components/Divider";
+import axios from "axios";
 
 type OverviewScreenNavigationProps = StackNavigationProp<RootStackParamList, 'ProfileView'>;
 
@@ -20,6 +21,7 @@ const SCREEN_WIDTH = Dimensions.get('window').width;
 
 export default function ProfileView() {
   const navigation = useNavigation<OverviewScreenNavigationProps>();
+  const [myProfile, setMyProfile] = useState({});
   const handleLogout = () => {
     Alert.alert(
       'Diverse 로그아웃',
@@ -49,21 +51,45 @@ export default function ProfileView() {
 
   }
 
-  useEffect(() => {
+  const fetchMyProfile = async () => {
+    try {
+      const token = await AsyncStorage.getItem('accessToken');
+      const response = await axios.get(`http://172.16.1.250:8080/member/me`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      console.log(response.data.data);
+      if (response.data.data) {
+        setMyProfile(response.data.data);
+        console.log(myProfile);
+        setMyProfile(response.data.data);
+      }
+    } catch (e) {
+      console.error('Fetching my profile error:', e);
+    }
+  };
 
+  useEffect(() => {
+    fetchMyProfile();
   }, []);
 
   return (
     <ScrollView contentContainerStyle={styles.container}>
       <StatusBar style="dark"/>
       <View style={styles.cardContainer}>
+        {/*{myProfile}*/}
         <FriendCard
-          name={'테슨트'}
-          genders={[{ pride: 'bigender.svg', name: '바이젠더' }, { pride: 'xenogender.svg', name: '제노젠더' }]}
-          Locate={'대구광역시 구지면'}
+          //@ts-ignore
+          name={myProfile.username}
+          //@ts-ignore
+          genders={myProfile.genders}
+          //@ts-ignore
+          Locate={myProfile.location}
           socialMedia={{ Facebook: 'https://facebook.com/user2', Twitter: 'https://twitter.com/user2', Tiktok: 'https://tiktok.com/@user3', AppleMusic: 'https://open.spotify.com/user/user3' }}
           profileImage={require('../../../assets/tuser.jpeg')}
-          introduction={"저는 테스트 유저입니다 이런식으로 차별과 혐오를 부수고 싶습니다."}
+          //@ts-ignore
+          introduction={myProfile.bio}
         />
       </View>
       <Divider orientation={'horizontal'} width={2} color={'#6e6e6e'} dividerStyle={styles.divider} />

@@ -32,16 +32,23 @@ const socialIcons = {
   AppleMusic: 'musical-notes',
 };
 
+interface Gender {
+  iconName: string;
+  id: number;
+  name: string;
+}
+
+
 interface FriendCardProps {
   name: string;
-  genders: Array<{ pride: string; name: string }>;
+  genders: Gender[];
   Locate?: string;
   socialMedia: Record<string, string>;
   profileImage: string;
   introduction: string;
 }
 
-const FriendCard: React.FC<FriendCardProps> = ({ name, genders, Locate, socialMedia, profileImage, introduction }) => {
+const FriendCard: React.FC<FriendCardProps> = ({ name, genders= [], Locate, socialMedia, profileImage, introduction }) => {
   const handleSocialMediaPress = (url: string) => {
     Linking.openURL(url).catch((err) => console.error('An error occurred', err));
   };
@@ -66,7 +73,7 @@ const FriendCard: React.FC<FriendCardProps> = ({ name, genders, Locate, socialMe
                 <View key={index} style={styles.genderBubble}>
                   <WithLocalSvg
                     // @ts-ignore
-                    asset={genderImages[gender.pride]}
+                    asset={genderImages[gender.iconName]}
                     width={22} height={18}
                     style={styles.prideFlag}
                   />

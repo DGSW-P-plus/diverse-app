@@ -14,7 +14,7 @@ export default function FriendCardView() {
     {
       id: 1,
       name: '박주영',
-      genders: [{ pride: 'agender.svg', name: '에이젠더' }],
+      genders: [{ iconName: 'agender.svg', name: '에이젠더' }],
       Locate: '대구광역시',
       socialMedia: { Instagram: 'https://instagram.com/user1', Tiktok: 'https://tiktok.com/@user3', AppleMusic: 'https://music.apple.com/profile/4rNe5' },
       profileImage: require('../../../assets/tuser.jpeg'),
@@ -23,7 +23,7 @@ export default function FriendCardView() {
     {
       id: 2,
       name: '박준현',
-      genders: [{ pride: 'bigender.svg', name: '바이젠더' }, { pride: 'xenogender.svg', name: '제노젠더' }],
+      genders: [{ iconName: 'bigender.svg', name: '바이젠더' }, { iconName: 'xenogender.svg', name: '제노젠더' }],
       Locate: '서울특별시',
       socialMedia: { Facebook: 'https://facebook.com/user2', Twitter: 'https://twitter.com/user2', Tiktok: 'https://tiktok.com/@user3', AppleMusic: 'https://music.apple.com/profile/4rNe5' },
       profileImage: require('../../../assets/tuser.jpeg'),
@@ -32,7 +32,7 @@ export default function FriendCardView() {
     {
       id: 3,
       name: '주강현',
-      genders: [{ pride: 'female.svg', name: '여성' }, { pride: 'agender.svg', name: '에이젠더' }],
+      genders: [{ iconName: 'female.svg', name: '여성' }, { iconName: 'agender.svg', name: '에이젠더' }],
       Locate: '창원통합시 성산구',
       socialMedia: { Facebook: 'https://facebook.com/user2', Twitter: 'https://twitter.com/user2', Tiktok: 'https://tiktok.com/@user3', AppleMusic: 'https://music.apple.com/profile/4rNe5' },
       profileImage: require('../../../assets/tuser.jpeg'),
@@ -41,7 +41,7 @@ export default function FriendCardView() {
     {
       id: 4,
       name: '박주영',
-      genders: [{ pride: 'agender.svg', name: '에이젠더' }],
+      genders: [{ iconName: 'agender.svg', name: '에이젠더' }],
       Locate: '대구광역시',
       socialMedia: { Instagram: 'https://instagram.com/user1', Tiktok: 'https://tiktok.com/@user3', AppleMusic: 'https://music.apple.com/profile/4rNe5' },
       profileImage: require('../../../assets/tuser.jpeg'),
@@ -50,7 +50,7 @@ export default function FriendCardView() {
     {
       id: 5,
       name: '박준현',
-      genders: [{ pride: 'bigender.svg', name: '바이젠더' }, { pride: 'xenogender.svg', name: '제노젠더' }],
+      genders: [{ iconName: 'bigender.svg', name: '바이젠더' }, { iconName: 'xenogender.svg', name: '제노젠더' }],
       Locate: '서울특별시',
       socialMedia: { Facebook: 'https://facebook.com/user2', Twitter: 'https://twitter.com/user2', Tiktok: 'https://tiktok.com/@user3', AppleMusic: 'https://music.apple.com/profile/4rNe5' },
       profileImage: require('../../../assets/tuser.jpeg'),
@@ -59,7 +59,7 @@ export default function FriendCardView() {
     {
       id: 6,
       name: '주강현',
-      genders: [{ pride: 'female.svg', name: '여성' }, { pride: 'agender.svg', name: '에이젠더' }],
+      genders: [{ iconName: 'female.svg', name: '여성' }, { iconName: 'agender.svg', name: '에이젠더' }],
       Locate: '창원통합시 성산구',
       socialMedia: { Facebook: 'https://facebook.com/user2', Twitter: 'https://twitter.com/user2', Tiktok: 'https://tiktok.com/@user3', AppleMusic: 'hhttps://music.apple.com/profile/4rNe5' },
       profileImage: require('../../../assets/tuser.jpeg'),
@@ -68,7 +68,7 @@ export default function FriendCardView() {
     {
       id: 7,
       name: '박주영',
-      genders: [{ pride: 'agender.svg', name: '에이젠더' }],
+      genders: [{ iconName: 'agender.svg', name: '에이젠더' }],
       Locate: '대구광역시',
       socialMedia: { Instagram: 'https://instagram.com/user1', Tiktok: 'https://tiktok.com/@user3', AppleMusic: 'https://music.apple.com/profile/4rNe5' },
       profileImage: require('../../../assets/tuser.jpeg'),
@@ -77,7 +77,7 @@ export default function FriendCardView() {
     {
       id: 8,
       name: '박준현',
-      genders: [{ pride: 'bigender.svg', name: '바이젠더' }, { pride: 'xenogender.svg', name: '제노젠더' }],
+      genders: [{ iconName: 'bigender.svg', name: '바이젠더' }, { iconName: 'xenogender.svg', name: '제노젠더' }],
       Locate: '서울특별시',
       socialMedia: { Facebook: 'https://facebook.com/user2', Twitter: 'https://twitter.com/user2', Tiktok: 'https://tiktok.com/@user3', AppleMusic: 'https://music.apple.com/profile/4rNe5' },
       profileImage: require('../../../assets/tuser.jpeg'),
@@ -86,7 +86,7 @@ export default function FriendCardView() {
     {
       id: 9,
       name: '주강현',
-      genders: [{ pride: 'female.svg', name: '여성' }, { pride: 'agender.svg', name: '에이젠더' }],
+      genders: [{ iconName: 'female.svg', name: '여성' }, { iconName: 'agender.svg', name: '에이젠더' }],
       Locate: '창원통합시 성산구',
       socialMedia: { Facebook: 'https://facebook.com/user2', Twitter: 'https://twitter.com/user2', Tiktok: 'https://tiktok.com/@user3', AppleMusic: 'https://music.apple.com/profile/4rNe5' },
       profileImage: require('../../../assets/tuser.jpeg'),
