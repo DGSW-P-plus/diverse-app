@@ -87,6 +87,7 @@ export default function RegisterView() {
         </ScrollView>
         <View style={styles.buttonContainer}>
           <TouchableOpacity style={styles.registerButton} onPress={() =>  navigation.dispatch(CommonActions.reset({ index: 0, routes: [{ name: 'TabNavigator' }], }))}>
+          {/*<TouchableOpacity style={styles.registerButton} onPress={handleLogin}>*/}
             <Text style={styles.registerButtonText}>로그인</Text>
           </TouchableOpacity>
         </View>

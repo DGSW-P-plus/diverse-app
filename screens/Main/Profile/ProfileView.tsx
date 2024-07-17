@@ -7,6 +7,7 @@ import { StatusBar } from "expo-status-bar";
 import FriendCard from "../../../components/FriendCard";
 import { Ionicons } from "@expo/vector-icons";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import Divider from "../../../components/Divider";
 
 type OverviewScreenNavigationProps = StackNavigationProp<RootStackParamList, 'ProfileView'>;
 
@@ -61,13 +62,14 @@ export default function ProfileView() {
           introduction={"저는 테스트 유저입니다 이런식으로 차별과 혐오를 부수고 싶습니다."}
         />
       </View>
+      <Divider orientation={'horizontal'} width={2} color={'#6e6e6e'} dividerStyle={styles.divider} />
       <View style={styles.buttonContainer}>
         <TouchableOpacity style={styles.button}>
           <Ionicons name="person-outline" size={23} color="black" />
           <Text style={styles.buttonText}>프로필 수정</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.button}>
-          <Ionicons name="transgender-outline" size={23} color="black" />
+        <TouchableOpacity style={styles.button} onPress={() => navigation.push('GenderSelectView', { isFirstNavigate: false })} >
+          <Ionicons name="transgender-outline" size={23} color="black"/>
           <Text style={styles.buttonText}>Gender 수정</Text>
         </TouchableOpacity>
         <TouchableOpacity style={styles.button}>
@@ -92,7 +94,7 @@ const styles = StyleSheet.create({
   },
   cardContainer: {
     marginTop: 60,
-    marginBottom: 30,
+    marginBottom: 20,
   },
   buttonContainer: {
     width: SCREEN_WIDTH * 0.88,
@@ -110,6 +112,9 @@ const styles = StyleSheet.create({
     borderRadius: 15,
     padding: 15,
     marginBottom: 17,
+  },
+  divider: {
+    marginBottom: 20,
   },
   buttonText: {
     marginLeft: 12,

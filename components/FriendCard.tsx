@@ -46,10 +46,14 @@ const FriendCard: React.FC<FriendCardProps> = ({ name, genders, Locate, socialMe
     Linking.openURL(url).catch((err) => console.error('An error occurred', err));
   };
 
-  // @ts-ignore
+
   return (
     <View style={styles.card}>
-      <ImageBackground source={profileImage} style={styles.backgroundImage}>
+      <ImageBackground
+        // @ts-ignore
+        source={profileImage}
+        style={styles.backgroundImage}
+      >
         <LinearGradient
           colors={['transparent', 'rgba(0,0,0,0.8)']}
           style={styles.gradient}
@@ -61,6 +65,7 @@ const FriendCard: React.FC<FriendCardProps> = ({ name, genders, Locate, socialMe
               {genders.map((gender, index) => (
                 <View key={index} style={styles.genderBubble}>
                   <WithLocalSvg
+                    // @ts-ignore
                     asset={genderImages[gender.pride]}
                     width={22} height={18}
                     style={styles.prideFlag}
@@ -77,6 +82,7 @@ const FriendCard: React.FC<FriendCardProps> = ({ name, genders, Locate, socialMe
                     onPress={() => handleSocialMediaPress(url)}
                   >
                     <Ionicons
+                      // @ts-ignore
                       name={socialIcons[platform]}
                       size={35}
                       color="white"
