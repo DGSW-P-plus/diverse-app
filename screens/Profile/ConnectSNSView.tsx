@@ -53,7 +53,7 @@ export default function ConnectSNSView() {
       <StatusBar style="dark" />
       <View style={styles.titleContainer}>
         <Text style={styles.title}>Diverse</Text>
-        <Text style={styles.titleBold}>SNS 연결</Text>
+        <Text style={styles.titleBold}>SNS 등록</Text>
       </View>
 
       <View style={styles.formContainer}>

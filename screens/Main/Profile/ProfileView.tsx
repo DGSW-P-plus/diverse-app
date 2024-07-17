@@ -78,7 +78,7 @@ export default function ProfileView() {
         </TouchableOpacity>
         <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('ConnectSNSView', { isFirstNavigate: false })}>
           <Ionicons name="share-social-outline" size={23} color="black" />
-          <Text style={styles.buttonText}>SNS 수정</Text>
+          <Text style={styles.buttonText}>SNS 등록</Text>
         </TouchableOpacity>
         <TouchableOpacity style={[styles.button, styles.logoutButton]} onPress={handleLogout}>
           <Ionicons name="log-out-outline" size={23} color="white" />

@@ -105,7 +105,7 @@ export default function EditProfileView() {
           <StatusBar style="dark"/>
           <View style={styles.titleContainer}>
             <Text style={styles.title}>Diverse</Text>
-            <Text style={styles.titleBold}>프로필 수정.</Text>
+            <Text style={styles.titleBold}>프로필 수정</Text>
           </View>
 
           <View style={styles.formContainer}>
