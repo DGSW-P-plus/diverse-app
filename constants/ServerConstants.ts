@@ -1,2 +1,2 @@
-export const SERVER_URL = 'http://43.201.63.177:8080'
-export const WEBSOCKET_URL = "ws://43.201.63.177:8080/ws"
+export const SERVER_URL = 'http://localhost:8080'
+export const WEBSOCKET_URL = "ws://localhost:8080/ws"

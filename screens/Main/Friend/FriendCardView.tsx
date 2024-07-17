@@ -1,10 +1,13 @@
-import React from 'react';
-import { View, Text, StyleSheet, Dimensions, Image, Platform, Animated } from "react-native";
+import React, { useEffect, useState } from "react";
+import { View, Text, StyleSheet, Dimensions, Image, Platform, Animated, Button } from "react-native";
 import Swiper from 'react-native-deck-swiper';
 import { StatusBar } from "expo-status-bar";
 import { WithLocalSvg } from 'react-native-svg/css';
 import { Ionicons } from '@expo/vector-icons';
 import FriendCard from "../../../components/FriendCard";
+import axios from "axios";
+import { SERVER_URL } from "../../../constants/ServerConstants";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const SCREEN_HEIGHT = Dimensions.get('window').height;
 const SCREEN_WIDTH = Dimensions.get('window').width;
@@ -93,10 +96,30 @@ export default function FriendCardView() {
       introduction: "여성이자 에이젠더인 주강현입니다. 환경 보호에 관심이 많고, 지속 가능한 생활 방식을 실천하고 있어요."
     },
   ];
+  // const [cards, setCards] = useState<any[]>([])
+  //
+  // useEffect(() => {
+  //   AsyncStorage.getItem("accessToken").then((token) =>{
+  //     axios.get(`${SERVER_URL}/member/find`, {
+  //       headers: {
+  //         Authorization: token,
+  //       },
+  //       params: {
+  //         page: 0,
+  //         size: 1000,
+  //       }
+  //     })
+  //       .then((res) => {
+  //         setCards(res.data.data)
+  //       })
+  //       .catch(err => console.error(err));
+  //     },
+  //   )
+  // }, []);
 
   return (
     <View style={styles.container}>
-      <StatusBar style="dark"/>
+      <StatusBar style="dark" />
       <Swiper
         cards={cards}
         // @ts-ignore
