@@ -30,7 +30,6 @@ export default function TabLayout({ navigation }: Props) {
           tabBarLabelStyle: {
             fontSize: 12,
             fontFamily: 'Pretendard-SemiBold',
-            marginTop: -4,
             paddingBottom: 3,
           },
           tabBarIcon: ({ color }) => <Ionicons name="chatbubble-ellipses" size={25} color={color} />,
