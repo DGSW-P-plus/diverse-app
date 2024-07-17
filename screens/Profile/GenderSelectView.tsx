@@ -7,6 +7,7 @@ import { StatusBar } from "expo-status-bar";
 import { Ionicons } from "@expo/vector-icons";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { WithLocalSvg } from "react-native-svg/css";
+import axios from "axios";
 
 type GenderSelectViewRouteProps = RouteProp<RootStackParamList, 'GenderSelectView'>;
 type GenderSelectViewNavigationProps = StackNavigationProp<RootStackParamList, 'GenderSelectView'>;
@@ -52,29 +53,67 @@ export default function GenderSelectView() {
     { "name": "제노젠더", "iconName": "xenogender.svg", "id": 14 },
   ];
 
+  const genderPutData = {
+    genderIds: selectedGenders
+  }
+
   useEffect(() => {
     if (!route.params.isFirstNavigate) {
-      // API 호출 또는 AsyncStorage에서 데이터를 불러오는 로직
-      // 예시:
       fetchGenderData();
     }
   }, []);
 
   const fetchGenderData = async () => {
     try {
-      // API 호출 또는 AsyncStorage에서 데이터를 불러오는 로직
-      // 예시:
-      const response = await fetch('YOUR_API_ENDPOINT');
-      const json = await response.json();
-      if (json.status === 0 && json.data && json.data.genders) {
-        //@ts-ignore
-        const selectedIds = json.data.genders.map(gender => gender.id);
-        setSelectedGenders(selectedIds);
+      const token = await AsyncStorage.getItem('accessToken');
+      console.log(token);
+      const response = await axios.get(`http://172.16.1.250:8080/genders/my`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      if (response.data.data) {
+        const genderIds = response.data.data.genders.map((gender: { id: number }) => gender.id);
+        setSelectedGenders(genderIds);
+        console.log(response.data.data)
       }
-    } catch (error) {
-      console.error(error);
+    } catch (e) {
+      console.error('Fetching gender data error:', e);
     }
   };
+
+  const putGenderData = async () => {
+    try {
+      const token = await AsyncStorage.getItem('accessToken');
+      console.log(token);
+      const response = await axios.put(`http://172.16.1.250:8080/genders/my`, genderPutData,{
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }).then(() => {
+        Alert.alert(
+          'Gender 수정 완료',
+          'Gender 수정이 완료되었습니다.',
+          [
+            {
+              text: '확인',
+              onPress: () => {
+                navigation.dispatch(
+                  CommonActions.reset({
+                    index: 0,
+                    routes: [{ name: 'TabNavigator' }],
+                  })
+                );
+              },
+            },
+          ],
+          { cancelable: false }
+        );
+      })
+    } catch (e) {
+      console.error('Fetching gender data error:', e);
+    }
+  }
 
   const toggleGender = (id: number) => {
     setSelectedGenders(prevSelected =>
@@ -117,8 +156,7 @@ export default function GenderSelectView() {
         ))}
       </View>
       <View style={styles.buttonContainer}>
-        <TouchableOpacity style={styles.registerButton} onPress={() =>  navigation.dispatch(CommonActions.reset({ index: 0, routes: [{ name: 'TabNavigator' }], }))}>
-          {/*<TouchableOpacity style={styles.registerButton} onPress={handleLogin}>*/}
+        <TouchableOpacity style={styles.registerButton} onPress={putGenderData}>
           <Text style={styles.registerButtonText}>저장하기</Text>
         </TouchableOpacity>
       </View>
@@ -175,29 +213,29 @@ const styles = StyleSheet.create({
   genderBubble: {
     flexDirection: 'row',
     alignItems: 'center',
-    paddingHorizontal: 16, // 수평 패딩 증가
-    paddingVertical: 8,   // 수직 패딩 증가
+    paddingHorizontal: 16,
+    paddingVertical: 8,
     backgroundColor: 'rgba(255,255,255,0.93)',
-    borderRadius: 22,      // 반경 증가
-    marginRight: 10,       // 오른쪽 마진 증가
-    marginBottom: 10,      // 아래쪽 마진 증가
+    borderRadius: 22,
+    marginRight: 10,
+    marginBottom: 10,
     elevation: 5,
     borderWidth: 2,
     borderColor: '#e4e4e4',
   },
   selectedBubble: {
-    borderColor: 'transparent',  // 선택 시 검은색 테두리
-    backgroundColor: 'rgba(23,23,23,0.93)', // 배경색 유지
+    borderColor: 'transparent',
+    backgroundColor: 'rgba(23,23,23,0.93)',
   },
   prideFlag: {
     paddingLeft: 5,
     borderRadius: 5,
-    width: 26,  // 아이콘 크기 증가
-    height: 22, // 아이콘 크기 증가
+    width: 26,
+    height: 22,
   },
   genderName: {
-    marginLeft: 8,  // 왼쪽 마진 증가
-    fontSize: 17,   // 글자 크기 증가
+    marginLeft: 8,
+    fontSize: 17,
     fontFamily: 'Pretendard-Medium',
     color: 'black',
   },
@@ -205,5 +243,4 @@ const styles = StyleSheet.create({
     fontFamily: 'Pretendard-SemiBold',
     color: 'white',
   },
-
 });

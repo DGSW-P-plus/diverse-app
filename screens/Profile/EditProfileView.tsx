@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from "react";
 import { CommonActions, RouteProp, useNavigation, useRoute } from "@react-navigation/native";
 import { StackNavigationProp } from '@react-navigation/stack';
 import {
@@ -31,6 +31,68 @@ export default function EditProfileView() {
   const [location, setLocation] = useState('');
   const [bio, setBio] = useState('');
 
+  const patchData = {
+    nickname: name,
+    bio: bio,
+    location: location,
+  }
+
+  const fetchMyProfile = async () => {
+    try {
+      const token = await AsyncStorage.getItem('accessToken');
+      const response = await axios.get(`http://172.16.1.250:8080/member/me`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      console.log(response.data.data);
+      if (response.data.data)
+        setName(response.data.data.username);
+        setLocation(response.data.data.location);
+        setBio(response.data.data.bio);
+      } catch (e) {
+      console.error('Fetching my profile error:', e);
+    }
+  };
+
+  const patchMyProfile = async () => {
+    try {
+      const token = await AsyncStorage.getItem('accessToken');
+      const response = await axios.patch('http://172.16.1.250:8080/member/me', patchData, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }).then(() => {
+        Alert.alert(
+          '프로필 수정 완료',
+          '프로필 수정이 완료되었습니다.',
+          [
+            {
+              text: '확인',
+              onPress: () => {
+                navigation.dispatch(
+                  CommonActions.reset({
+                    index: 0,
+                    routes: [{ name: 'TabNavigator' }],
+                  })
+                );
+              },
+            },
+          ],
+          { cancelable: false }
+        );
+      })
+    } catch (e) {
+      console.error('Fetching my profile error:', e);
+    }
+  };
+
+
+  useEffect(() => {
+    if (route.params.isFirstNavigate == false) {
+      fetchMyProfile();
+    }
+  }, []);
 
   return (
     <SafeAreaView style={styles.safeArea}>
@@ -68,7 +130,7 @@ export default function EditProfileView() {
           </View>
         </ScrollView>
         <View style={styles.buttonContainer}>
-          <TouchableOpacity style={styles.registerButton} onPress={() => console.log("Pressed")}>
+          <TouchableOpacity style={styles.registerButton} onPress={patchMyProfile}>
             <Text style={styles.registerButtonText}>저장하기</Text>
           </TouchableOpacity>
         </View>

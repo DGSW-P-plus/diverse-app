@@ -7,6 +7,7 @@ import { StatusBar } from "expo-status-bar";
 import { Ionicons } from "@expo/vector-icons";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import AnimatedTextInput from '../../components/AnimatedTextInput';
+import axios from "axios";
 
 type ConnectSNSViewRouteProps = RouteProp<RootStackParamList, 'ConnectSNSView'>;
 type ConnectSNSViewNavigationProps = StackNavigationProp<RootStackParamList, 'ConnectSNSView'>;

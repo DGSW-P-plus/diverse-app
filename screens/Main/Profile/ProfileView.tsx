@@ -49,6 +49,10 @@ export default function ProfileView() {
 
   }
 
+  useEffect(() => {
+
+  }, []);
+
   return (
     <ScrollView contentContainerStyle={styles.container}>
       <StatusBar style="dark"/>

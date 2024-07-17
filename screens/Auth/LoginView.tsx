@@ -38,7 +38,7 @@ export default function RegisterView() {
 
     try {
       console.log(loginBody)
-      const response = await axios.post(`http://192.168.0.6:8080/auth/login`, loginBody);
+      const response = await axios.post(`http://172.16.1.250:8080/auth/login`, loginBody);
 
       console.log(response.data);
       if (response.data.data) {
@@ -89,8 +89,8 @@ export default function RegisterView() {
           </View>
         </ScrollView>
         <View style={styles.buttonContainer}>
-          <TouchableOpacity style={styles.registerButton} onPress={() =>  navigation.dispatch(CommonActions.reset({ index: 0, routes: [{ name: 'TabNavigator' }], }))}>
-          {/*<TouchableOpacity style={styles.registerButton} onPress={handleLogin}>*/}
+          {/*<TouchableOpacity style={styles.registerButton} onPress={() =>  navigation.dispatch(CommonActions.reset({ index: 0, routes: [{ name: 'TabNavigator' }], }))}>*/}
+          <TouchableOpacity style={styles.registerButton} onPress={handleLogin}>
             <Text style={styles.registerButtonText}>로그인</Text>
           </TouchableOpacity>
         </View>

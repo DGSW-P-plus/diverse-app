@@ -47,7 +47,7 @@ export default function RegisterView() {
 
     try {
       console.log(registerBody)
-      const response = await axios.post(`http://192.168.0.6:8080/auth/signup`, registerBody);
+      const response = await axios.post(`http://172.16.1.250:8080/auth/signup`, registerBody);
 
       console.log(response.data);
       if (response.data.data) {
@@ -56,12 +56,7 @@ export default function RegisterView() {
         await AsyncStorage.setItem('refreshToken', refreshToken);
 
         Alert.alert("성공", "회원가입이 완료되었습니다.");
-        navigation.dispatch(
-          CommonActions.reset({
-            index: 0,
-            routes: [{ name: 'TabNavigator' }],
-          })
-        );
+        navigation.replace('GenderSelectView',{isFirstNavigate: true})
       } else {
         throw new Error('Invalid response format');
       }
