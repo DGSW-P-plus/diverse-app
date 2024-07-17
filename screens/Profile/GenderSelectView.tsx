@@ -181,13 +181,6 @@ const styles = StyleSheet.create({
     borderRadius: 22,      // 반경 증가
     marginRight: 10,       // 오른쪽 마진 증가
     marginBottom: 10,      // 아래쪽 마진 증가
-    // shadowColor: "#000",
-    // shadowOffset: {
-    //   width: 0,
-    //   height: 2,
-    // },
-    // shadowOpacity: 0.25,
-    // shadowRadius: 3.84,
     elevation: 5,
     borderWidth: 2,
     borderColor: '#e4e4e4',

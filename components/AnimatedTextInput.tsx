@@ -1,59 +1,93 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Animated, StyleSheet, TextInput, View } from "react-native";
 
 type AnimatedTextInputProps = {
   label: string,
   value: string,
   onChangeText: (text: string) => void,
-  secureTextEntry?: boolean
+  secureTextEntry?: boolean,
+  icon?: React.ReactNode
 };
 
-export default function AnimatedTextInput({ label, value, onChangeText, secureTextEntry }: AnimatedTextInputProps) {
+export default function AnimatedTextInput({ label, value, onChangeText, secureTextEntry, icon }: AnimatedTextInputProps) {
   const [isFocused, setIsFocused] = useState(false);
-  const labelPosition = new Animated.Value(value ? 1 : 0);
+  const focusAnim = useRef(new Animated.Value(0)).current;
+  const inputAnim = useRef(new Animated.Value(0)).current;
 
   useEffect(() => {
-    Animated.timing(labelPosition, {
+    Animated.timing(focusAnim, {
       toValue: isFocused || value ? 1 : 0,
-      duration: 250,
+      duration: 200,
       useNativeDriver: false
     }).start();
-  }, [isFocused, value]);
+  }, [focusAnim, isFocused, value]);
+
+  const handleFocus = () => {
+    setIsFocused(true);
+    Animated.timing(inputAnim, {
+      toValue: 1,
+      duration: 200,
+      useNativeDriver: false
+    }).start();
+  };
+
+  const handleBlur = () => {
+    setIsFocused(false);
+    if (!value) {
+      Animated.timing(inputAnim, {
+        toValue: 0,
+        duration: 200,
+        useNativeDriver: false
+      }).start();
+    }
+  };
 
   const labelStyle = {
     position: 'absolute',
-    paddingTop: 3,
-    left: 20,
-    top: labelPosition.interpolate({
+    left: focusAnim.interpolate({
       inputRange: [0, 1],
-      outputRange: [18, 8]
+      outputRange: [icon ? 50 : 20, icon ? 45 : 15]
     }),
-    fontSize: labelPosition.interpolate({
+    top: focusAnim.interpolate({
+      inputRange: [0, 1],
+      outputRange: [20, 7]
+    }),
+    fontSize: focusAnim.interpolate({
       inputRange: [0, 1],
       outputRange: [16, 12]
     }),
-    color: labelPosition.interpolate({
+    color: focusAnim.interpolate({
       inputRange: [0, 1],
       outputRange: ['#9e9e9e', '#6c6c6c']
     })
   };
 
+  const inputStyle = {
+    paddingLeft: inputAnim.interpolate({
+      inputRange: [0, 1],
+      outputRange: [icon ? 40 : 20, icon ? 30 : 0]
+    })
+  };
+
   return (
     <View style={styles.inputContainer}>
+      {icon && <View style={styles.iconContainer}>{icon}</View>}
       <Animated.Text style={[styles.inputLabel, labelStyle]}>
         {label}
       </Animated.Text>
-      <TextInput
-        style={styles.input}
-        onFocus={() => setIsFocused(true)}
-        onBlur={() => setIsFocused(false)}
-        onChangeText={onChangeText}
-        value={value}
-        secureTextEntry={secureTextEntry}
-      />
+      <Animated.View style={inputStyle}>
+        <TextInput
+          style={[styles.input, icon && styles.inputWithIcon]}
+          onFocus={handleFocus}
+          onBlur={handleBlur}
+          onChangeText={onChangeText}
+          value={value}
+          secureTextEntry={secureTextEntry}
+        />
+      </Animated.View>
     </View>
   );
-};
+}
 
 const styles = StyleSheet.create({
   inputContainer: {
@@ -72,5 +106,16 @@ const styles = StyleSheet.create({
     fontSize: 16,
     color: '#000',
     paddingTop: 10,
+    height: '100%',
+    textAlignVertical: 'center',
+  },
+  iconContainer: {
+    position: 'absolute',
+    left: 15,
+    top: 18,
+    zIndex: 1,
+  },
+  inputWithIcon: {
+    paddingLeft: 0,
   },
 });

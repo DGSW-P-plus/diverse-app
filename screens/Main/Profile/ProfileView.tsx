@@ -72,7 +72,7 @@ export default function ProfileView() {
           <Ionicons name="transgender-outline" size={23} color="black"/>
           <Text style={styles.buttonText}>Gender 수정</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.button}>
+        <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('ConnectSNSView', { isFirstNavigate: false })}>
           <Ionicons name="share-social-outline" size={23} color="black" />
           <Text style={styles.buttonText}>SNS 수정</Text>
         </TouchableOpacity>

@@ -7,6 +7,7 @@ import RegisterView from "../screens/Auth/RegisterView";
 import LoginView from "../screens/Auth/LoginView";
 import TabNavigator from  "navigation/tab-navigator"
 import GenderSelectView from "../screens/Profile/GenderSelectView";
+import ConnectSNSView from "../screens/Profile/ConnectSNSView";
 import { fontLists } from "../assets/fonts/fontLists";
 
 
@@ -19,6 +20,7 @@ export type RootStackParamList = {
   FriendCardView: undefined;
   ProfileView: undefined;
   GenderSelectView: { isFirstNavigate: boolean };
+  ConnectSNSView: { isFirstNavigate: boolean };
 };
 
 import { Text } from "react-native";
@@ -56,6 +58,11 @@ export default function RootStack() {
         <Stack.Screen
           name="GenderSelectView"
           component={GenderSelectView}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="ConnectSNSView"
+          component={ConnectSNSView}
           options={{ headerShown: false }}
         />
       </Stack.Navigator>
