@@ -4,23 +4,10 @@ import Swiper from 'react-native-deck-swiper';
 import { StatusBar } from "expo-status-bar";
 import { WithLocalSvg } from 'react-native-svg/css';
 import { Ionicons } from '@expo/vector-icons';
+import FriendCard from "../../../components/FriendCard";
 
 const SCREEN_HEIGHT = Dimensions.get('window').height;
 const SCREEN_WIDTH = Dimensions.get('window').width;
-
-const genderImages = {
-  'agender.svg': require('../../../assets/genders/agender.svg'),
-  'bigender.svg': require('../../../assets/genders/bigender.svg'),
-};
-
-const socialIcons = {
-  Instagram: 'logo-instagram',
-  Facebook: 'logo-facebook',
-  Tiktok: 'logo-tiktok',
-  Twitter: 'logo-twitter',
-  Spotify: 'logo-spotify',
-  AppleMusic: 'musical-notes',
-};
 
 export default function FriendCardView() {
   const cards = [
@@ -28,49 +15,13 @@ export default function FriendCardView() {
     { id: 2, name: '박준현', genderPride: 'bigender.svg', genderName: '바이젠더', Locate: '서울특별시', socialMedia: { Facebook: 'https://facebook.com/user2', Twitter: 'https://twitter.com/user2' } },
     { id: 3, name: '주강현', genderPride: 'agender.svg', genderName: '에이젠더', Locate: '창원통합시 성산구', socialMedia: { Tiktok: 'https://tiktok.com/@user3', Spotify: 'https://open.spotify.com/user/user3' } },
   ];
-  // @ts-ignore
-  const renderCard = (card: any) => (
-    <View style={styles.card}>
-      <Image source={require('../../../assets/people.jpeg')} style={styles.profileImage} />
-
-      <View style={styles.infoContainer}>
-        <Text style={styles.cardNameText}>{card.name}</Text>
-
-        <View style={styles.genderBubble}>
-          <WithLocalSvg
-            // @ts-ignore
-            width={24}
-            height={24}
-            style={styles.prideFlag}
-            // @ts-ignore
-            asset={genderImages[card.genderPride]}
-          />
-          <Text style={styles.genderName}>{card.genderName}</Text>
-        </View>
-
-        {card.Locate && (
-          <Text style={styles.location}>{card.Locate}</Text>
-        )}
-
-        <View style={styles.socialMediaContainer}>
-          {Object.entries(card.socialMedia).map(([platform, url]) => (
-            url ? (
-              <View key={platform} style={styles.socialIcon}>
-                <Ionicons name={socialIcons[platform] || 'ios-help'} size={24} color="black" />
-              </View>
-            ) : null
-          ))}
-        </View>
-      </View>
-    </View>
-  );
 
   return (
     <View style={styles.container}>
       <StatusBar style="dark"/>
       <Swiper
         cards={cards}
-        renderCard={renderCard}
+        renderCard={(card) => <FriendCard {...card} />}
         onSwiped={(cardIndex) => console.log(`카드 ${cardIndex}가 스와이프됨`)}
         onSwipedAll={() => console.log('모든 카드가 스와이프됨')}
         cardIndex={0}
@@ -82,6 +33,7 @@ export default function FriendCardView() {
     </View>
   );
 }
+
 
 const styles = StyleSheet.create({
   container: {
