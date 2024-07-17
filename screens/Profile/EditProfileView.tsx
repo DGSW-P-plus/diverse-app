@@ -40,7 +40,7 @@ export default function EditProfileView() {
   const fetchMyProfile = async () => {
     try {
       const token = await AsyncStorage.getItem('accessToken');
-      const response = await axios.get(`http://172.16.1.250:8080/member/me`, {
+      const response = await axios.get(`http://172.16.3.80:8080/member/me`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -58,7 +58,7 @@ export default function EditProfileView() {
   const patchMyProfile = async () => {
     try {
       const token = await AsyncStorage.getItem('accessToken');
-      const response = await axios.patch('http://172.16.1.250:8080/member/me', patchData, {
+      const response = await axios.patch('http://172.16.3.80:8080/member/me', patchData, {
         headers: {
           Authorization: `Bearer ${token}`,
         },

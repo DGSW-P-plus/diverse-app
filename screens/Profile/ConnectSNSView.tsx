@@ -42,7 +42,7 @@ export default function ConnectSNSView() {
   const fetchSNSData = async () => {
     try {
       const token = await AsyncStorage.getItem('accessToken');
-      const response = await axios.get('http://172.16.1.250:8080/sns/me',{
+      const response = await axios.get('http://172.16.3.80:8080/sns/me',{
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -64,7 +64,7 @@ export default function ConnectSNSView() {
       const token = await AsyncStorage.getItem('accessToken');
       const snsArray = Object.entries(snsData).map(([type, url]) => ({ type, url }));
       console.log({ sns: snsArray })
-      const response = await axios.patch('http://172.16.1.250:8080/sns/all', { sns: snsArray },{
+      const response = await axios.patch('http://172.16.3.80:8080/sns/all', { sns: snsArray },{
         headers: {
           Authorization: `Bearer ${token}`,
         },
