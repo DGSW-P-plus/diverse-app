@@ -99,6 +99,7 @@ export default function FriendCardView() {
       <StatusBar style="dark"/>
       <Swiper
         cards={cards}
+        // @ts-ignore
         renderCard={(card) => <FriendCard {...card} />}
         onSwiped={(cardIndex) => console.log(`카드 ${cardIndex}가 스와이프됨`)}
         onSwipedAll={() => console.log('모든 카드가 스와이프됨')}
