@@ -29,7 +29,7 @@ export default function RootStack() {
   }
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName="TabNavigator">
+      <Stack.Navigator initialRouteName="StartView">
         <Stack.Screen
           name="StartView"
           component={StartView}

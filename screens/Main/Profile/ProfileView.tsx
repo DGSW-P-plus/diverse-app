@@ -1,89 +1,126 @@
 import React, { useState, useEffect } from 'react';
-import { useNavigation } from '@react-navigation/native';
+import { CommonActions, useNavigation } from "@react-navigation/native";
 import { StackNavigationProp } from '@react-navigation/stack';
-import { ScrollView, StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { Alert, Dimensions, ScrollView, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { RootStackParamList } from '../../../navigation';
 import { StatusBar } from "expo-status-bar";
+import FriendCard from "../../../components/FriendCard";
+import { Ionicons } from "@expo/vector-icons";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
-type OverviewScreenNavigationProps = StackNavigationProp<RootStackParamList, 'ChatListView'>;
+type OverviewScreenNavigationProps = StackNavigationProp<RootStackParamList, 'ProfileView'>;
 
 //TODO: 프로필 받아오기 구현
 //TODO: 이미지 캐싱, SNS 컴포넌트 디자인
 //TODO: 소개글 작성 페이지, Fetch 로직 만들기.
 //TODO: Gender 수정 페이지, Fetch 로직 만들기.
 
+const SCREEN_WIDTH = Dimensions.get('window').width;
+
 export default function ProfileView() {
-  const [selectedInterests, setSelectedInterests] = useState([]);
-
-  const interests = [
-    '음악', '댄스', '요리', '여행', '스포츠', '게임',
-    '영화', '독서', '패션', '기술', '예술', '동물'
-  ];
-
-  // @ts-ignore
-  const toggleInterest = (interest) => {
-    // @ts-ignore
-    setSelectedInterests(prevInterests =>
-      // @ts-ignore
-      prevInterests.includes(interest)
-        ? prevInterests.filter(i => i !== interest)
-        : [...prevInterests, interest]
+  const navigation = useNavigation<OverviewScreenNavigationProps>();
+  const handleLogout = () => {
+    Alert.alert(
+      'Diverse 로그아웃',
+      '정말로 로그아웃 하시겠습니까?',
+      [
+        {
+          text: '예',
+          onPress: async () => {
+            await AsyncStorage.clear();
+            navigation.dispatch(
+              CommonActions.reset({
+                index: 0,
+                routes: [{ name: 'StartView' }],
+              })
+            );
+          },
+          style: 'destructive',
+        },
+        {
+          text: '아니요',
+          onPress: () => {},
+          style: 'cancel',
+        },
+      ],
+      { cancelable: false }
     );
-  };
 
-  // @ts-ignore
+  }
+
   return (
     <ScrollView contentContainerStyle={styles.container}>
-      <Text style={styles.title}>관심사를 선택하세요</Text>
-      <View style={styles.grid}>
-        {interests.map((interest) => (
-          <TouchableOpacity
-            key={interest}
-            style={[
-              styles.interestButton,
-              // @ts-ignore
-              selectedInterests.includes(interest) && styles.selected
-            ]}
-            onPress={() => toggleInterest(interest)}
-          >
-            <Text style={styles.interestText}>{interest}</Text>
-          </TouchableOpacity>
-        ))}
+      <StatusBar style="dark"/>
+      <View style={styles.cardContainer}>
+        <FriendCard
+          name={'테슨트'}
+          genders={[{ pride: 'bigender.svg', name: '바이젠더' }, { pride: 'xenogender.svg', name: '제노젠더' }]}
+          Locate={'대구광역시 구지면'}
+          socialMedia={{ Facebook: 'https://facebook.com/user2', Twitter: 'https://twitter.com/user2', Tiktok: 'https://tiktok.com/@user3', AppleMusic: 'https://open.spotify.com/user/user3' }}
+          profileImage={require('../../../assets/tuser.jpeg')}
+          introduction={"저는 테스트 유저입니다 이런식으로 차별과 혐오를 부수고 싶습니다."}
+        />
+      </View>
+      <View style={styles.buttonContainer}>
+        <TouchableOpacity style={styles.button}>
+          <Ionicons name="person-outline" size={23} color="black" />
+          <Text style={styles.buttonText}>프로필 수정</Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.button}>
+          <Ionicons name="transgender-outline" size={23} color="black" />
+          <Text style={styles.buttonText}>Gender 수정</Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.button}>
+          <Ionicons name="share-social-outline" size={23} color="black" />
+          <Text style={styles.buttonText}>SNS 수정</Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={[styles.button, styles.logoutButton]} onPress={handleLogout}>
+          <Ionicons name="log-out-outline" size={23} color="white" />
+          <Text style={[styles.buttonText, styles.logoutText]}>로그아웃</Text>
+        </TouchableOpacity>
       </View>
     </ScrollView>
   );
-};
+}
 
 const styles = StyleSheet.create({
   container: {
     flexGrow: 1,
     padding: 20,
-    backgroundColor: '#fff',
-  },
-  title: {
-    fontSize: 24,
-    fontWeight: 'bold',
-    marginBottom: 20,
-    textAlign: 'center',
-  },
-  grid: {
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-    justifyContent: 'center',
-  },
-  interestButton: {
-    backgroundColor: '#f0f0f0',
-    borderRadius: 20,
-    padding: 10,
-    margin: 5,
-    minWidth: 80,
+    backgroundColor: '#f1f1f1',
     alignItems: 'center',
   },
-  selected: {
+  cardContainer: {
+    marginTop: 60,
+    marginBottom: 30,
+  },
+  buttonContainer: {
+    width: SCREEN_WIDTH * 0.88,
+  },
+  cardTitle: {
+    fontFamily: 'Pretendard-Bold',
+    fontSize: 35,
+    color: 'black',
+    marginTop: 50,
+  },
+  button: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    backgroundColor: '#dcdcdc',
+    borderRadius: 15,
+    padding: 15,
+    marginBottom: 17,
+  },
+  buttonText: {
+    marginLeft: 12,
+    fontSize: 15,
+    color: 'black',
+    fontFamily: 'Pretendard-SemiBold'
+  },
+  logoutButton: {
     backgroundColor: '#ff4757',
   },
-  interestText: {
-    color: '#333',
-    fontWeight: 'bold',
+  logoutText: {
+    color: 'white',
   },
-});;
+});

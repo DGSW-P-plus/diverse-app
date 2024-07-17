@@ -11,9 +11,87 @@ const SCREEN_WIDTH = Dimensions.get('window').width;
 
 export default function FriendCardView() {
   const cards = [
-    { id: 1, name: '박주영', genderPride: 'agender.svg', genderName: '에이젠더', Locate: '대구광역시', socialMedia: { Instagram: 'https://instagram.com/user1' } },
-    { id: 2, name: '박준현', genderPride: 'bigender.svg', genderName: '바이젠더', Locate: '서울특별시', socialMedia: { Facebook: 'https://facebook.com/user2', Twitter: 'https://twitter.com/user2' } },
-    { id: 3, name: '주강현', genderPride: 'agender.svg', genderName: '에이젠더', Locate: '창원통합시 성산구', socialMedia: { Tiktok: 'https://tiktok.com/@user3', Spotify: 'https://open.spotify.com/user/user3' } },
+    {
+      id: 1,
+      name: '박주영',
+      genders: [{ pride: 'agender.svg', name: '에이젠더' }],
+      Locate: '대구광역시',
+      socialMedia: { Instagram: 'https://instagram.com/user1', Tiktok: 'https://tiktok.com/@user3', AppleMusic: 'https://music.apple.com/profile/4rNe5' },
+      profileImage: require('../../../assets/tuser.jpeg'),
+      introduction: "안녕하세요! 에이젠더로 살아가는 박주영입니다. 음악과 춤을 좋아하고, 새로운 사람들과의 만남을 즐깁니다."
+    },
+    {
+      id: 2,
+      name: '박준현',
+      genders: [{ pride: 'bigender.svg', name: '바이젠더' }, { pride: 'xenogender.svg', name: '제노젠더' }],
+      Locate: '서울특별시',
+      socialMedia: { Facebook: 'https://facebook.com/user2', Twitter: 'https://twitter.com/user2', Tiktok: 'https://tiktok.com/@user3', AppleMusic: 'https://music.apple.com/profile/4rNe5' },
+      profileImage: require('../../../assets/tuser.jpeg'),
+      introduction: "다양한 성 정체성을 가진 박준현입니다. 예술과 기술의 융합에 관심이 많고, 항상 새로운 도전을 즐깁니다."
+    },
+    {
+      id: 3,
+      name: '주강현',
+      genders: [{ pride: 'female.svg', name: '여성' }, { pride: 'agender.svg', name: '에이젠더' }],
+      Locate: '창원통합시 성산구',
+      socialMedia: { Facebook: 'https://facebook.com/user2', Twitter: 'https://twitter.com/user2', Tiktok: 'https://tiktok.com/@user3', AppleMusic: 'https://music.apple.com/profile/4rNe5' },
+      profileImage: require('../../../assets/tuser.jpeg'),
+      introduction: "여성이자 에이젠더인 주강현입니다. 환경 보호에 관심이 많고, 지속 가능한 생활 방식을 실천하고 있어요."
+    },
+    {
+      id: 4,
+      name: '박주영',
+      genders: [{ pride: 'agender.svg', name: '에이젠더' }],
+      Locate: '대구광역시',
+      socialMedia: { Instagram: 'https://instagram.com/user1', Tiktok: 'https://tiktok.com/@user3', AppleMusic: 'https://music.apple.com/profile/4rNe5' },
+      profileImage: require('../../../assets/tuser.jpeg'),
+      introduction: "안녕하세요! 에이젠더로 살아가는 박주영입니다. 음악과 춤을 좋아하고, 새로운 사람들과의 만남을 즐깁니다."
+    },
+    {
+      id: 5,
+      name: '박준현',
+      genders: [{ pride: 'bigender.svg', name: '바이젠더' }, { pride: 'xenogender.svg', name: '제노젠더' }],
+      Locate: '서울특별시',
+      socialMedia: { Facebook: 'https://facebook.com/user2', Twitter: 'https://twitter.com/user2', Tiktok: 'https://tiktok.com/@user3', AppleMusic: 'https://music.apple.com/profile/4rNe5' },
+      profileImage: require('../../../assets/tuser.jpeg'),
+      introduction: "다양한 성 정체성을 가진 박준현입니다. 예술과 기술의 융합에 관심이 많고, 항상 새로운 도전을 즐깁니다."
+    },
+    {
+      id: 6,
+      name: '주강현',
+      genders: [{ pride: 'female.svg', name: '여성' }, { pride: 'agender.svg', name: '에이젠더' }],
+      Locate: '창원통합시 성산구',
+      socialMedia: { Facebook: 'https://facebook.com/user2', Twitter: 'https://twitter.com/user2', Tiktok: 'https://tiktok.com/@user3', AppleMusic: 'hhttps://music.apple.com/profile/4rNe5' },
+      profileImage: require('../../../assets/tuser.jpeg'),
+      introduction: "여성이자 에이젠더인 주강현입니다. 환경 보호에 관심이 많고, 지속 가능한 생활 방식을 실천하고 있어요."
+    },
+    {
+      id: 7,
+      name: '박주영',
+      genders: [{ pride: 'agender.svg', name: '에이젠더' }],
+      Locate: '대구광역시',
+      socialMedia: { Instagram: 'https://instagram.com/user1', Tiktok: 'https://tiktok.com/@user3', AppleMusic: 'https://music.apple.com/profile/4rNe5' },
+      profileImage: require('../../../assets/tuser.jpeg'),
+      introduction: "안녕하세요! 에이젠더로 살아가는 박주영입니다. 음악과 춤을 좋아하고, 새로운 사람들과의 만남을 즐깁니다."
+    },
+    {
+      id: 8,
+      name: '박준현',
+      genders: [{ pride: 'bigender.svg', name: '바이젠더' }, { pride: 'xenogender.svg', name: '제노젠더' }],
+      Locate: '서울특별시',
+      socialMedia: { Facebook: 'https://facebook.com/user2', Twitter: 'https://twitter.com/user2', Tiktok: 'https://tiktok.com/@user3', AppleMusic: 'https://music.apple.com/profile/4rNe5' },
+      profileImage: require('../../../assets/tuser.jpeg'),
+      introduction: "다양한 성 정체성을 가진 박준현입니다. 예술과 기술의 융합에 관심이 많고, 항상 새로운 도전을 즐깁니다."
+    },
+    {
+      id: 9,
+      name: '주강현',
+      genders: [{ pride: 'female.svg', name: '여성' }, { pride: 'agender.svg', name: '에이젠더' }],
+      Locate: '창원통합시 성산구',
+      socialMedia: { Facebook: 'https://facebook.com/user2', Twitter: 'https://twitter.com/user2', Tiktok: 'https://tiktok.com/@user3', AppleMusic: 'https://music.apple.com/profile/4rNe5' },
+      profileImage: require('../../../assets/tuser.jpeg'),
+      introduction: "여성이자 에이젠더인 주강현입니다. 환경 보호에 관심이 많고, 지속 가능한 생활 방식을 실천하고 있어요."
+    },
   ];
 
   return (

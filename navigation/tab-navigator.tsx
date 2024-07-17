@@ -15,7 +15,7 @@ export default function TabLayout({ navigation }: Props) {
     <Tab.Navigator
       screenOptions={{
         tabBarStyle: {
-          backgroundColor: '#e8e8e8',
+          backgroundColor: '#ffffff',
           borderRadius: 28,
           height: 91,
         },
