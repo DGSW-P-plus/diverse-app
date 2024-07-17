@@ -1,8 +1,8 @@
 import React from "react";
-import { Dimensions, Image, Platform, StyleSheet, Text, View } from "react-native";
+import { Dimensions, ImageBackground, StyleSheet, Text, View, Platform } from "react-native";
 import { WithLocalSvg } from "react-native-svg/css";
 import { Ionicons } from "@expo/vector-icons";
-
+import { LinearGradient } from 'expo-linear-gradient';
 
 const SCREEN_HEIGHT = Dimensions.get('window').height;
 const SCREEN_WIDTH = Dimensions.get('window').width;
@@ -27,123 +27,93 @@ interface FriendCardProps {
   genderName: string;
   Locate?: string;
   socialMedia: Record<string, string>;
+  profileImage: string;
 }
 
-// @ts-ignore
-const FriendCard: React.FC<FriendCardProps> = ({ name, genderPride, genderName, Locate, socialMedia }) => (
+const FriendCard: React.FC<FriendCardProps> = ({ name, genderPride, genderName, Locate, socialMedia, profileImage }) => (
   <View style={styles.card}>
-    <Image source={require('../assets/people.jpeg')} style={styles.profileImage} />
-
-    <View style={styles.infoContainer}>
-      <Text style={styles.cardNameText}>{name}</Text>
-
-      <View style={styles.genderBubble}>
-        <WithLocalSvg
-          // @ts-ignore
-          width={24}
-          height={24}
-          style={styles.prideFlag}
-          // @ts-ignore
-          asset={genderImages[genderPride]}
-        />
-        <Text style={styles.genderName}>{genderName}</Text>
-      </View>
-
-      {Locate && (
-        <Text style={styles.location}>{Locate}에 거주중</Text>
-      )}
-
-      <View style={styles.socialMediaContainer}>
-        {Object.entries(socialMedia).map(([platform, url]) => (
-          url ? (
-            <View key={platform} style={styles.socialIcon}>
-              <Ionicons name={socialIcons[platform] || 'ios-help'} size={24} color="black" />
-            </View>
-          ) : null
-        ))}
-      </View>
-    </View>
+    {/*<ImageBackground source={{ uri: profileImage }} style={styles.backgroundImage}>*/}
+    <ImageBackground source={require('../assets/people.jpeg')} style={styles.backgroundImage}>
+      <LinearGradient
+        colors={['transparent', 'rgba(0,0,0,0.8)']}
+        style={styles.gradient}
+      >
+        <View style={styles.contentContainer}>
+          <Text style={styles.cardNameText}>{name}</Text>
+          <View style={styles.genderBubble}>
+            <WithLocalSvg asset={genderImages[genderPride]} width={20} height={20} style={styles.prideFlag} />
+            <Text style={styles.genderName}>{genderName}</Text>
+          </View>
+          <View style={styles.socialMediaContainer}>
+            {Object.entries(socialMedia).map(([platform, url]) => (
+              url ? (
+                <Ionicons
+                  key={platform}
+                  name={socialIcons[platform]}
+                  size={24}
+                  color="white"
+                  style={styles.socialIcon}
+                />
+              ) : null
+            ))}
+          </View>
+        </View>
+      </LinearGradient>
+    </ImageBackground>
   </View>
 );
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#f1f1f1',
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  swiperContainer: {
-    flex: 1,
-  },
   card: {
-    width: SCREEN_WIDTH * 0.85,
-    height: SCREEN_HEIGHT * 0.65,
+    width: SCREEN_WIDTH * 0.88,
+    height: SCREEN_HEIGHT * 0.68,
     borderRadius: 40,
-    borderWidth: 2,
-    borderColor: '#E8E8E8',
-    backgroundColor: 'white',
+    overflow: 'hidden',
+  },
+  backgroundImage: {
+    width: '100%',
+    height: '100%',
+  },
+  gradient: {
+    flex: 1,
+    justifyContent: 'flex-end',
+  },
+  contentContainer: {
     padding: 20,
     alignItems: 'center',
   },
-  cardStyle: {
-    paddingBottom: 30,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  profileImage: {
-    width: 110,
-    height: 110,
-    borderRadius: 55,
-    marginBottom: 15,
-  },
-  infoContainer: {
-    alignItems: 'center',
-  },
   cardNameText: {
-    fontSize: 36,
+    fontSize: 40,
     fontFamily: 'Pretendard-Bold',
+    color: 'white',
     marginBottom: 10,
   },
   genderBubble: {
     flexDirection: 'row',
     alignItems: 'center',
-    paddingHorizontal: 10,
-    backgroundColor: '#ffffff',
+    paddingHorizontal: 12,
+    backgroundColor: 'rgba(255, 255, 255, 0.2)',
     borderRadius: 15,
     padding: 5,
     marginBottom: 10,
-    ...Platform.select({
-      ios: {
-        shadowColor: '#000',
-        shadowOffset: { width: 0, height: 2 },
-        shadowOpacity: 0.25,
-        shadowRadius: 3.84,
-      },
-      android: {
-        elevation: 5,
-      },
-    }),
   },
   prideFlag: {
     paddingLeft: 3,
+    borderRadius: 5,
   },
   genderName: {
     marginLeft: 5,
     fontSize: 14,
-  },
-  location: {
-    fontSize: 14,
-    color: 'gray',
-    marginBottom: 10,
+    color: 'white',
   },
   socialMediaContainer: {
     flexDirection: 'row',
     justifyContent: 'center',
+    marginTop: 10,
   },
   socialIcon: {
     marginHorizontal: 5,
   },
 });
 
-export default FriendCard
+export default FriendCard;
